@@ -1,0 +1,142 @@
+.videoPlayer
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.videoControls
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: 0vh 3vh;
+}
+
+.lock-select
+{
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.videoButtons
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 5px;
+}
+
+.videoButton
+{
+  width: 35px;
+  height: 35px;
+  padding: 5px;
+}
+
+.videoVolume
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon
+{
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.videoButtons-part
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3vh;
+}
+
+.videoControlsPlay
+{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.range-background
+{
+  position: relative;
+  height: 3px;
+  background: black;
+  border-radius: 2px;
+  top: 14px;
+  cursor: pointer;
+}
+
+.range-progress {
+  height: 100%;
+  background: white;
+  cursor: pointer;
+}
+
+.videoControlsProgress
+{
+  -webkit-animation: none;
+  -moz-animation: none;
+  appearance: none;
+  background-color: rgb(0, 0, 0, 0);
+  width: 100%;
+  cursor: pointer;
+  z-index: 1;
+}
+.videoControlsProgress::-webkit-slider-runnable-track
+{
+  height: 7px;
+  background: rgb(0, 0, 0, 0);
+  cursor: pointer;
+  z-index: 1;
+}
+.videoControlsProgress::-webkit-slider-thumb
+{
+  background: rgb(0, 0, 0, 0);
+  cursor: pointer;
+  width: 5px;
+  height: 7px;
+  -webkit-appearance: none;
+  z-index: 1;
+}
+
+.player-lenght
+{
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.flex-center
+{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
