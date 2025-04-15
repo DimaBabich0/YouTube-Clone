@@ -1,48 +1,62 @@
 import './SignIn.css';
 import React, { useState } from 'react';
-import PhotoSlider from '../../components/PhotoSlider/PhotoSlider';
+import PhotoSlider from './Component/PhotoSlider/PhotoSlider';
 import { Link } from 'react-router-dom';
+
+import SignPhoto1 from './Images/SignPhoto1.png';
+import SignPhoto2 from './Images/SignPhoto2.png';
+import SignPhoto3 from './Images/SignPhoto3.png';
+import SignPhoto4 from './Images/SignPhoto4.png';
+import SignPhoto5 from './Images/SignPhoto5.png';
+import SignPhoto6 from './Images/SignPhoto6.png';
+import SignPhoto7 from './Images/SignPhoto7.png';
+
+import iconFacebook from './Images/icon-facebook.svg';
+import iconGoogle from './Images/icon-google.svg';
+import iconTwitter from './Images/icon-twitter.svg';
+import iconApple from './Images/icon-apple.svg';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');  // State to manage error message visibility
+  const [errorMessage, setErrorMessage] = useState('');
 
   const Photos = [
-    ["./images/sign-page/SignPhoto1.png", "./images/sign-page/SignPhoto2.png", "./images/sign-page/SignPhoto3.png"],
-    ["./images/sign-page/SignPhoto4.png", "./images/sign-page/SignPhoto5.png", "./images/sign-page/SignPhoto6.png"],
-    ["./images/sign-page/SignPhoto7.png", "./images/sign-page/SignPhoto1.png", "./images/sign-page/SignPhoto3.png"]
+    [SignPhoto1, SignPhoto2, SignPhoto3],
+    [SignPhoto4, SignPhoto5, SignPhoto6],
+    [SignPhoto7, SignPhoto1, SignPhoto3]
   ];
 
-  const handleSignIn = async () => {
-    if (email && password) {
-      try {
-        const response = await fetch('/api/sign-in', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, password })
-        });
+  const sendToDatabase = async (email, password) => {
+    try {
+      const response = await fetch('/api/sign-in', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
 
-        const data = await response.json();
+      const data = await response.json();
 
-        if (response.ok) {
-          // Handle successful login (e.g., redirect to another page or show success message)
-          console.log('Login successful:', data);
-          setErrorMessage(''); // Clear error message on success
-        } else {
-          // Handle error response
-          console.error('Error logging in:', data);
-          setErrorMessage('Invalid credentials. Please try again.');
-        }
-      } catch (error) {
-        console.error('Network error:', error);
-        setErrorMessage('Something went wrong. Please try again later.');
+      if (response.ok) {
+        console.log('Login successful:', data);
+        setErrorMessage('');
+        // можно сделать редирект или сохранить токен
+      } else {
+        console.error('Login failed:', data);
+        setErrorMessage('Invalid credentials. Please try again.');
       }
-    } else {
-      setErrorMessage('Please enter both email and password.');
+    } catch (error) {
+      console.error('AJAX error:', error);
+      setErrorMessage('Something went wrong. Try again later.');
     }
+  };
+
+  const handleButtonClick = () => {
+    if (!email || !password) {
+      setErrorMessage('Please enter both email and password.');
+      return;
+    }
+    sendToDatabase(email, password);
   };
 
   return (
@@ -85,7 +99,6 @@ export default function SignIn() {
           </div>
         </label>
 
-        {/* Error message displayed when needed */}
         {errorMessage && (
           <div className="error-message">
             <p>{errorMessage}</p>
@@ -94,12 +107,12 @@ export default function SignIn() {
 
         <div className='bottomSection'>
           <div className='logoSection'>
-            <a href=""><img src='./images/sign-page/icon-facebook.svg' alt="Facebook" /></a>
-            <a href=""><img src='./images/sign-page/icon-google.svg' alt="Google" /></a>
-            <a href=""><img src='./images/sign-page/icon-twitter.svg' alt="Twitter" /></a>
-            <a href=""><img src='./images/sign-page/icon-apple.svg' alt="Apple" /></a>
+            <a href=""><img src={iconFacebook} alt="Facebook" /></a>
+            <a href=""><img src={iconGoogle} alt="Google" /></a>
+            <a href=""><img src={iconTwitter} alt="Twitter" /></a>
+            <a href=""><img src={iconApple} alt="Apple" /></a>
           </div>
-          <button className='sign-in-button' onClick={handleSignIn}>
+          <button className='sign-in-button' onClick={handleButtonClick}>
             <p className='text'>Sign in</p>
           </button>
         </div>
