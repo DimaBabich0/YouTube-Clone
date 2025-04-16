@@ -1,7 +1,7 @@
 import './SignIn.css';
 import React, { useState } from 'react';
 import PhotoSlider from './Component/PhotoSlider/PhotoSlider';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import SignPhoto1 from './Images/SignPhoto1.png';
 import SignPhoto2 from './Images/SignPhoto2.png';
@@ -16,20 +16,23 @@ import iconGoogle from './Images/icon-google.svg';
 import iconTwitter from './Images/icon-twitter.svg';
 import iconApple from './Images/icon-apple.svg';
 
+const Photos = [
+  [SignPhoto1, SignPhoto2, SignPhoto3],
+  [SignPhoto4, SignPhoto5, SignPhoto6],
+  [SignPhoto7, SignPhoto1, SignPhoto3]
+];
+
 export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  
+  const navigate = useNavigate();
 
-  const Photos = [
-    [SignPhoto1, SignPhoto2, SignPhoto3],
-    [SignPhoto4, SignPhoto5, SignPhoto6],
-    [SignPhoto7, SignPhoto1, SignPhoto3]
-  ];
-
-  const sendToDatabase = async (email, password) => {
+  const sendToDatabase = async (email, password) =>
+  {
     try {
-      const response = await fetch('/api/sign-in', {
+      const response = await fetch('http://localhost:5103/SignIn', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -38,9 +41,8 @@ export default function SignIn() {
       const data = await response.json();
 
       if (response.ok) {
-        console.log('Login successful:', data);
         setErrorMessage('');
-        // можно сделать редирект или сохранить токен
+        navigate('/');
       } else {
         console.error('Login failed:', data);
         setErrorMessage('Invalid credentials. Please try again.');
@@ -95,7 +97,7 @@ export default function SignIn() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <a className="link" href="#">Forgot your password?</a>
+            <a className="link" href="/">Forgot your password?</a>
           </div>
         </label>
 
@@ -112,7 +114,7 @@ export default function SignIn() {
             <a href=""><img src={iconTwitter} alt="Twitter" /></a>
             <a href=""><img src={iconApple} alt="Apple" /></a>
           </div>
-          <button className='sign-in-button' onClick={handleButtonClick}>
+          <button className='sign-in-button' type="button" onClick={handleButtonClick}>
             <p className='text'>Sign in</p>
           </button>
         </div>

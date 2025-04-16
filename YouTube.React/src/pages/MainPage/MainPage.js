@@ -54,7 +54,9 @@ const renderVideos = (videos) => {
   ));
 };
 
-const chipNames = ['All', 'Music', 'Jams', 'Podcasts', 'Comedy', 'Live', 'Selena Gomez', 'Manga', 'Game Shows', 'Spiderman', 'Existential Dread', 'Horrors Beyond Comprehension']; 
+const chipNames = [
+  'All', 'Music', 'Jams', 'Podcasts', 'Comedy', 'Live', 'Selena Gomez', 'Manga', 'Game Shows', 'Spiderman', 'Existential Dread', 'Horrors Beyond Comprehension'
+]; 
 
 export default function MainPage() {
 

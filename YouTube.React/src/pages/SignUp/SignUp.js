@@ -1,9 +1,7 @@
 import './SignUp.css';
 import React, { useState } from 'react';
 import PhotoSlider from './Component/PhotoSlider/PhotoSlider';
-import { useNavigate } from 'react-router-dom';
-
-
+import { redirect, useNavigate } from 'react-router-dom';
 
 import SignPhoto1 from './Images/SignPhoto1.png';
 import SignPhoto2 from './Images/SignPhoto2.png';
@@ -22,7 +20,7 @@ import icon_Arrow from './Images/icon_arrow_insert.svg';
 export default function SignUp() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: ''
@@ -34,19 +32,19 @@ export default function SignUp() {
     [SignPhoto4, SignPhoto5, SignPhoto6],
     [SignPhoto7, SignPhoto1, SignPhoto3]
   ];
-
+  
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { username, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [username]: value
     }));
   };
 
   const sendToDatabase = async () => {
-    const { name, email, password, confirmPassword } = formData;
+    const { username, email, password, confirmPassword } = formData;
 
-    if (!name || !email || !password || !confirmPassword) {
+    if (!username || !email || !password || !confirmPassword) {
       setErrorMessage('Please fill in all fields.');
       return;
     }
@@ -57,18 +55,18 @@ export default function SignUp() {
     }
 
     try {
-      const response = await fetch('/api/sign-up', {
+      const response = await fetch('http://localhost:5103/SignUp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password })
+        body: JSON.stringify({ username, email, password })
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        console.log('Account created:', data);
+        alert('Account created:', data);
         setErrorMessage('');
-        // возможно редирект или очистка формы
+        navigate("/");
       } else {
         setErrorMessage(data.message || 'Something went wrong. Try again.');
       }
@@ -110,7 +108,7 @@ export default function SignUp() {
             <input
               className='input'
               type="text"
-              name="name"
+              name="username"
               placeholder="Name"
               value={formData.name}
               onChange={handleChange}
@@ -164,7 +162,7 @@ export default function SignUp() {
         </div>
 
         <div className='flex-center'>
-          <a href="#" className='link'><p className='text'>Welcome to AMTLIS</p></a>
+          <a href="http://localhost:3000/" className='link'><p className='text'>Welcome to AMTLIS</p></a>
         </div>
         <br />
       </div>
