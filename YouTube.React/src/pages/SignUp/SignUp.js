@@ -34,12 +34,13 @@ export default function SignUp() {
   ];
   
   const handleChange = (e) => {
-    const { username, value } = e.target;
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [username]: value
+      [name]: value
     }));
   };
+  
 
   const sendToDatabase = async () => {
     const { username, email, password, confirmPassword } = formData;
