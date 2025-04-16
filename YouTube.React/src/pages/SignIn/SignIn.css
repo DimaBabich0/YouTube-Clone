@@ -154,8 +154,8 @@
 
 .error-message {
   color: red;
-  font-size: 14px;
-  margin-top: 10px;
+  font-size: 0.5em;
+  margin-top: 0.5em;
   text-align: center;
 
   line-height: 1.2;

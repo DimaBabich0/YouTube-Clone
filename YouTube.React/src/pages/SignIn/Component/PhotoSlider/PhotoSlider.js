@@ -1,24 +1,25 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './PhotoSlider.css';
 
-export default function PhotoSlider({ sources })
-{
-  const min = -50;
-  const max = 200;
-  const randNum = Math.floor(Math.random() * (max - min + 1) + min);
-  
+export default function PhotoSlider({ sources }) {
+  const randNum = useMemo(() => {
+    const min = -50;
+    const max = 200;
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }, []); // ← пустой массив зависимостей, вызывается один раз при монтировании
+
   return (
-    <div className='slider-row' style={{paddingLeft: randNum}}>
-      {sources.map((source) => (
-        <div>
-          <img src={source}></img>
+    <div className='slider-row' style={{ paddingLeft: randNum }}>
+      {sources.map((source, index) => (
+        <div key={`first-${index}`}>
+          <img src={source} alt='' />
         </div>
       ))}
-      {sources.map((source) => (
-        <div>
-          <img src={source}></img>
+      {sources.map((source, index) => (
+        <div key={`second-${index}`}>
+          <img src={source} alt='' />
         </div>
       ))}
     </div>
-  )
+  );
 }
