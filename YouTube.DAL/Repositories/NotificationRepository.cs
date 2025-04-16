@@ -10,7 +10,7 @@ using YouTube.DAL.Interfaces;
 
 namespace YouTube.DAL.Repositories
 {
-    internal class NotificationRepository : IRepository<Notification>
+    public class NotificationRepository : IRepository<Notification>
     {
         private readonly YouTubeContext db;
 
@@ -24,14 +24,9 @@ namespace YouTube.DAL.Repositories
             return await db.Notifications.ToListAsync();
         }
 
-        public async Task<Notification?> Get(int id)
+        public async Task<Notification?> Get(object id)
         {
             return await db.Notifications.FindAsync(id);
-        }
-
-        public async Task<Notification?> Get(params object[] keyValues)
-        {
-            return await db.Notifications.FindAsync(keyValues);
         }
 
         public async Task Create(Notification item)
@@ -46,7 +41,7 @@ namespace YouTube.DAL.Repositories
             db.SaveChanges();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(object id)
         {
             Notification? notification = await db.Notifications.FindAsync(id);
             if (notification != null)
@@ -55,16 +50,5 @@ namespace YouTube.DAL.Repositories
                 await db.SaveChangesAsync();
             }
         }
-
-        public async Task Delete(params object[] keyValues)
-        {
-            Notification? notification = await db.Notifications.FindAsync(keyValues);
-            if (notification != null)
-            {
-                db.Notifications.Remove(notification);
-                await db.SaveChangesAsync();
-            }
-        }
     }
-
 }

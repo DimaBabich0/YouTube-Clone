@@ -10,7 +10,7 @@ using YouTube.DAL.Interfaces;
 
 namespace YouTube.DAL.Repositories
 {
-    internal class UserRepository : IRepository<User>
+    public class UserRepository : IRepository<User>
     {
         private readonly YouTubeContext db;
 
@@ -24,14 +24,9 @@ namespace YouTube.DAL.Repositories
             return await db.Users.ToListAsync();
         }
 
-        public async Task<User?> Get(int id)
+        public async Task<User?> Get(object id)
         {
             return await db.Users.FindAsync(id);
-        }
-
-        public async Task<User?> Get(params object[] keyValues)
-        {
-            return await db.Users.FindAsync(keyValues);
         }
 
         public async Task Create(User item)
@@ -46,19 +41,9 @@ namespace YouTube.DAL.Repositories
             db.SaveChanges();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(object id)
         {
             User? user = await db.Users.FindAsync(id);
-            if (user != null)
-            {
-                db.Users.Remove(user);
-                await db.SaveChangesAsync();
-            }
-        }
-
-        public async Task Delete(params object[] keyValues)
-        {
-            User? user = await db.Users.FindAsync(keyValues);
             if (user != null)
             {
                 db.Users.Remove(user);

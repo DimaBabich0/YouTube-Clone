@@ -10,7 +10,7 @@ using YouTube.DAL.Interfaces;
 
 namespace YouTube.DAL.Repositories
 {
-    internal class CommentRepository : IRepository<Comment>
+    public class CommentRepository : IRepository<Comment>
     {
         private readonly YouTubeContext db;
 
@@ -24,14 +24,9 @@ namespace YouTube.DAL.Repositories
             return await db.Comments.ToListAsync();
         }
 
-        public async Task<Comment?> Get(int id)
+        public async Task<Comment?> Get(object id)
         {
             return await db.Comments.FindAsync(id);
-        }
-
-        public async Task<Comment?> Get(params object[] keyValues)
-        {
-            return await db.Comments.FindAsync(keyValues);
         }
 
         public async Task Create(Comment item)
@@ -46,7 +41,7 @@ namespace YouTube.DAL.Repositories
             db.SaveChanges();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(object id)
         {
             Comment? comment = await db.Comments.FindAsync(id);
             if (comment != null)
@@ -55,16 +50,5 @@ namespace YouTube.DAL.Repositories
                 await db.SaveChangesAsync();
             }
         }
-
-        public async Task Delete(params object[] keyValues)
-        {
-            Comment? comment = await db.Comments.FindAsync(keyValues);
-            if (comment != null)
-            {
-                db.Comments.Remove(comment);
-                await db.SaveChangesAsync();
-            }
-        }
     }
-
 }

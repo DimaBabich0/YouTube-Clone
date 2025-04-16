@@ -32,7 +32,7 @@ export default function SignIn() {
   const sendToDatabase = async (email, password) =>
   {
     try {
-      const response = await fetch('http://localhost:5103/SignIn', {
+      const response = await fetch('http://localhost:5103/Sign/In', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -44,12 +44,16 @@ export default function SignIn() {
         setErrorMessage('');
         navigate('/');
       } else {
-        console.error('Login failed:', data);
-        setErrorMessage('Invalid credentials. Please try again.');
+        const errorMessages = Object.entries(data.errors)
+        .map(([field, messages]) => messages.map(msg => `${msg}`))
+        .flat()
+        .join('\n');
+      
+        setErrorMessage(errorMessages || 'Something went wrong. Try again.');
       }
     } catch (error) {
-      console.error('AJAX error:', error);
-      setErrorMessage('Something went wrong. Try again later.');
+      console.error('Sign-in error:', error);
+      setErrorMessage('Server error. Please try again later.');
     }
   };
 

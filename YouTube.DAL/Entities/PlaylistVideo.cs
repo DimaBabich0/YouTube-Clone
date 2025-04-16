@@ -8,6 +8,8 @@ namespace YouTube.DAL.Entities
 {
     public class PlaylistVideo
     {
+        public int Id { get; set; }
+
         public int PlaylistId { get; set; }
         public Playlist Playlist { get; set; }
 

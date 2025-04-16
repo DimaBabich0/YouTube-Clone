@@ -14,8 +14,8 @@ namespace YouTube.DAL.Entities
         public string PasswordHash { get; set; }
         public string Salt { get; set; }
 
-        public int ChannelId { get; set; }
-        public Channel Channel { get; set; }
+        public int? ChannelId { get; set; }
+        public Channel? Channel { get; set; }
 
         public ICollection<Subscription> Subscriptions { get; set; }
         public ICollection<VideoLike> VideoLikes { get; set; }

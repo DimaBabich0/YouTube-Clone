@@ -56,7 +56,7 @@ export default function SignUp() {
     }
 
     try {
-      const response = await fetch('http://localhost:5103/SignUp', {
+      const response = await fetch('http://localhost:5103/Sign/Up', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, email, password })
@@ -69,7 +69,12 @@ export default function SignUp() {
         setErrorMessage('');
         navigate("/");
       } else {
-        setErrorMessage(data.message || 'Something went wrong. Try again.');
+        const errorMessages = Object.entries(data.errors)
+        .map(([field, messages]) => messages.map(msg => `${msg}`))
+        .flat()
+        .join('\n');
+        
+        setErrorMessage(errorMessages || 'Something went wrong. Try again.');
       }
     } catch (error) {
       console.error('Sign-up error:', error);

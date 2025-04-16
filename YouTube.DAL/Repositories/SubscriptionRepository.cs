@@ -10,7 +10,7 @@ using YouTube.DAL.Interfaces;
 
 namespace YouTube.DAL.Repositories
 {
-    internal class SubscriptionRepository : IRepository<Subscription>
+    public class SubscriptionRepository : IRepository<Subscription>
     {
         private readonly YouTubeContext db;
 
@@ -24,7 +24,7 @@ namespace YouTube.DAL.Repositories
             return await db.Subscriptions.ToListAsync();
         }
 
-        public async Task<Subscription?> Get(int id)
+        public async Task<Subscription?> Get(object id)
         {
             return await db.Subscriptions.FindAsync(id);
         }
@@ -46,7 +46,7 @@ namespace YouTube.DAL.Repositories
             db.SaveChanges();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(object id)
         {
             Subscription? subscription = await db.Subscriptions.FindAsync(id);
             if (subscription != null)
@@ -55,16 +55,5 @@ namespace YouTube.DAL.Repositories
                 await db.SaveChangesAsync();
             }
         }
-
-        public async Task Delete(params object[] keyValues)
-        {
-            Subscription? subscription = await db.Subscriptions.FindAsync(keyValues);
-            if (subscription != null)
-            {
-                db.Subscriptions.Remove(subscription);
-                await db.SaveChangesAsync();
-            }
-        }
     }
-
 }

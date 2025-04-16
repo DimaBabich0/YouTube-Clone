@@ -10,7 +10,7 @@ using YouTube.DAL.Interfaces;
 
 namespace YouTube.DAL.Repositories
 {
-    internal class VideoLikeRepository : IRepository<VideoLike>
+    public class VideoLikeRepository : IRepository<VideoLike>
     {
         private readonly YouTubeContext db;
 
@@ -24,14 +24,9 @@ namespace YouTube.DAL.Repositories
             return await db.VideoLikes.ToListAsync();
         }
 
-        public async Task<VideoLike?> Get(int id)
+        public async Task<VideoLike?> Get(object id)
         {
             return await db.VideoLikes.FindAsync(id);
-        }
-
-        public async Task<VideoLike?> Get(params object[] keyValues)
-        {
-            return await db.VideoLikes.FindAsync(keyValues);
         }
 
         public async Task Create(VideoLike item)
@@ -46,7 +41,7 @@ namespace YouTube.DAL.Repositories
             db.SaveChanges();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(object id)
         {
             VideoLike? videoLike = await db.VideoLikes.FindAsync(id);
             if (videoLike != null)
@@ -55,16 +50,5 @@ namespace YouTube.DAL.Repositories
                 await db.SaveChangesAsync();
             }
         }
-
-        public async Task Delete(params object[] keyValues)
-        {
-            VideoLike? videoLike = await db.VideoLikes.FindAsync(keyValues);
-            if (videoLike != null)
-            {
-                db.VideoLikes.Remove(videoLike);
-                await db.SaveChangesAsync();
-            }
-        }
     }
-
 }

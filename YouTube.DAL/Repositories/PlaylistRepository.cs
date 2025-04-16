@@ -10,7 +10,7 @@ using YouTube.DAL.Interfaces;
 
 namespace YouTube.DAL.Repositories
 {
-    internal class PlaylistRepository : IRepository<Playlist>
+    public class PlaylistRepository : IRepository<Playlist>
     {
         private readonly YouTubeContext db;
 
@@ -24,14 +24,9 @@ namespace YouTube.DAL.Repositories
             return await db.Playlists.ToListAsync();
         }
 
-        public async Task<Playlist?> Get(int id)
+        public async Task<Playlist?> Get(object id)
         {
             return await db.Playlists.FindAsync(id);
-        }
-
-        public async Task<Playlist?> Get(params object[] keyValues)
-        {
-            return await db.Playlists.FindAsync(keyValues);
         }
 
         public async Task Create(Playlist item)
@@ -46,7 +41,7 @@ namespace YouTube.DAL.Repositories
             db.SaveChanges();
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(object id)
         {
             Playlist? playlist = await db.Playlists.FindAsync(id);
             if (playlist != null)
@@ -55,16 +50,5 @@ namespace YouTube.DAL.Repositories
                 await db.SaveChangesAsync();
             }
         }
-
-        public async Task Delete(params object[] keyValues)
-        {
-            Playlist? playlist = await db.Playlists.FindAsync(keyValues);
-            if (playlist != null)
-            {
-                db.Playlists.Remove(playlist);
-                await db.SaveChangesAsync();
-            }
-        }
     }
-
 }

@@ -6,7 +6,7 @@ export default function PhotoSlider({ sources }) {
     const min = -50;
     const max = 200;
     return Math.floor(Math.random() * (max - min + 1) + min);
-  }, []); // ← пустой массив зависимостей, вызывается один раз при монтировании
+  }, []);
 
   return (
     <div className='slider-row' style={{ paddingLeft: randNum }}>

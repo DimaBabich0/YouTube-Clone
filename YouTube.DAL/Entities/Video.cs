@@ -22,5 +22,7 @@ namespace YouTube.DAL.Entities
         public Channel Channel { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
+        public ICollection<VideoLike> VideoLikes { get; set; }
+        public ICollection<PlaylistVideo> PlaylistVideos { get; set; }
     }
 }
