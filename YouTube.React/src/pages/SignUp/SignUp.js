@@ -1,7 +1,7 @@
 import './SignUp.css';
 import React, { useState } from 'react';
 import PhotoSlider from './Component/PhotoSlider/PhotoSlider';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import SignPhoto1 from './Images/SignPhoto1.png';
 import SignPhoto2 from './Images/SignPhoto2.png';
@@ -19,39 +19,46 @@ import icon_Arrow from './Images/icon_arrow_insert.svg';
 
 export default function SignUp() {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    errorMessage: ''
   });
-  const [errorMessage, setErrorMessage] = useState('');
 
   const Photos = [
     [SignPhoto1, SignPhoto2, SignPhoto3],
     [SignPhoto4, SignPhoto5, SignPhoto6],
     [SignPhoto7, SignPhoto1, SignPhoto3]
   ];
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
+      errorMessage: '' // Очистить ошибку при изменении данных
     }));
   };
-  
 
   const sendToDatabase = async () => {
     const { username, email, password, confirmPassword } = formData;
 
     if (!username || !email || !password || !confirmPassword) {
-      setErrorMessage('Please fill in all fields.');
+      setFormData((prev) => ({
+        ...prev,
+        errorMessage: 'Please fill in all fields.'
+      }));
       return;
     }
 
     if (password !== confirmPassword) {
-      setErrorMessage('Passwords do not match.');
+      setFormData((prev) => ({
+        ...prev,
+        errorMessage: 'Passwords do not match.'
+      }));
       return;
     }
 
@@ -66,41 +73,52 @@ export default function SignUp() {
 
       if (response.ok) {
         alert('Account created:', data);
-        setErrorMessage('');
+        setFormData({
+          username: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          errorMessage: ''
+        });
         navigate("/");
       } else {
         const errorMessages = Object.entries(data.errors)
-        .map(([field, messages]) => messages.map(msg => `${msg}`))
-        .flat()
-        .join('\n');
-        
-        setErrorMessage(errorMessages || 'Something went wrong. Try again.');
+          .map(([field, messages]) => messages.map(msg => `${msg}`))
+          .flat()
+          .join('\n');
+
+        setFormData((prev) => ({
+          ...prev,
+          errorMessage: errorMessages || 'Something went wrong. Try again.'
+        }));
       }
     } catch (error) {
       console.error('Sign-up error:', error);
-      setErrorMessage('Server error. Please try again later.');
+      setFormData((prev) => ({
+        ...prev,
+        errorMessage: 'Server error. Please try again later.'
+      }));
     }
   };
 
   const handleSignUpClick = () => {
-    setErrorMessage('');
     sendToDatabase();
   };
 
   return (
     <div className='page'>
-      <div className='photos'>
-        <PhotoSlider sources={Photos[0]} />
-        <PhotoSlider sources={Photos[1]} />
-        <PhotoSlider sources={Photos[2]} />
-      </div>
+<div className='photos'>
+  {Photos.map((photoSet, index) => (
+    <PhotoSlider key={index} sources={photoSet} />
+  ))}
+</div>
 
       <div className='block'>
-      <div>
-         <button onClick={() => navigate('/sign-in')} className="back-button">
-           <img src={icon_Arrow} alt="Back" />
-        </button>
-      </div>
+        <div>
+          <button onClick={() => navigate('/sign-in')} className="back-button">
+            <img src={icon_Arrow} alt="Back" />
+          </button>
+        </div>
 
         <div>
           <h1 className='mainText'>
@@ -116,7 +134,7 @@ export default function SignUp() {
               type="text"
               name="username"
               placeholder="Name"
-              value={formData.name}
+              value={formData.username}
               onChange={handleChange}
             />
             <input
@@ -149,9 +167,9 @@ export default function SignUp() {
           </div>
         </label>
 
-        {errorMessage && (
+        {formData.errorMessage && (
           <div className="error-message">
-            <p>{errorMessage}</p>
+            <p>{formData.errorMessage}</p>
           </div>
         )}
 

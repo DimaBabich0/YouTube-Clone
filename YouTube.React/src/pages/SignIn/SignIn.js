@@ -23,14 +23,35 @@ const Photos = [
 ];
 
 export default function SignIn() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  
   const navigate = useNavigate();
 
-  const sendToDatabase = async (email, password) =>
-  {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    errorMessage: ''
+  });
+
+  // Обработчик для изменения данных формы
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+      errorMessage: '' // Очищаем ошибку при изменении данных
+    }));
+  };
+
+  const sendToDatabase = async () => {
+    const { email, password } = formData;
+
+    if (!email || !password) {
+      setFormData((prev) => ({
+        ...prev,
+        errorMessage: 'Please enter both email and password.'
+      }));
+      return;
+    }
+
     try {
       const response = await fetch('http://localhost:5103/Sign/In', {
         method: 'POST',
@@ -41,36 +62,42 @@ export default function SignIn() {
       const data = await response.json();
 
       if (response.ok) {
-        setErrorMessage('');
+        setFormData({
+          email: '',
+          password: '',
+          errorMessage: ''
+        });
         navigate('/');
       } else {
         const errorMessages = Object.entries(data.errors)
-        .map(([field, messages]) => messages.map(msg => `${msg}`))
-        .flat()
-        .join('\n');
-      
-        setErrorMessage(errorMessages || 'Something went wrong. Try again.');
+          .map(([field, messages]) => messages.map(msg => `${msg}`))
+          .flat()
+          .join('\n');
+
+        setFormData((prev) => ({
+          ...prev,
+          errorMessage: errorMessages || 'Something went wrong. Try again.'
+        }));
       }
     } catch (error) {
       console.error('Sign-in error:', error);
-      setErrorMessage('Server error. Please try again later.');
+      setFormData((prev) => ({
+        ...prev,
+        errorMessage: 'Server error. Please try again later.'
+      }));
     }
   };
 
   const handleButtonClick = () => {
-    if (!email || !password) {
-      setErrorMessage('Please enter both email and password.');
-      return;
-    }
-    sendToDatabase(email, password);
+    sendToDatabase();
   };
 
   return (
     <div className='page'>
       <div className='photos'>
-        <PhotoSlider sources={Photos[0]} />
-        <PhotoSlider sources={Photos[1]} />
-        <PhotoSlider sources={Photos[2]} />
+        {Photos.map((photoSet, index) => (
+          <PhotoSlider key={index} sources={photoSet} />
+        ))}
       </div>
 
       <div className='block'>
@@ -87,9 +114,10 @@ export default function SignIn() {
             <input
               className='input'
               type="text"
+              name="email"
               placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={formData.email}
+              onChange={handleChange}
             />
           </div>
 
@@ -97,17 +125,18 @@ export default function SignIn() {
             <input
               className='input'
               type="password"
+              name="password"
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={handleChange}
             />
             <a className="link" href="/">Forgot your password?</a>
           </div>
         </label>
 
-        {errorMessage && (
+        {formData.errorMessage && (
           <div className="error-message">
-            <p>{errorMessage}</p>
+            <p>{formData.errorMessage}</p>
           </div>
         )}
 

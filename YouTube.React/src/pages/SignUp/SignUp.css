@@ -1,3 +1,4 @@
+
 .page
 {
   overflow: hidden;
@@ -78,6 +79,7 @@
   box-sizing: border-box;
   background-color: black;
   color: white;
+  font-family: 'Jura', sans-serif; 
 }
 
 .inputSection
@@ -101,9 +103,9 @@
 .input::placeholder 
 {
   color: white;
-  font-family: Inter;
   font-size: 16px;
   font-weight: 400;
+  font-family: 'Jura', sans-serif; 
 }
 
 .link
@@ -143,6 +145,7 @@
   color: white;
   background-color: #6486DB;
   border: none;
+  cursor: pointer;
 }
 .log-in-button p
 {
