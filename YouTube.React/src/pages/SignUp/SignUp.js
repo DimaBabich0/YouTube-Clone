@@ -69,23 +69,18 @@ export default function SignUp() {
         body: JSON.stringify({ username, email, password })
       });
 
-      const data = await response.json();
+      let text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (error) {
+        data = { message: text };
+      }
 
       if (response.ok) {
-        alert('Account created:', data);
-        setFormData({
-          username: '',
-          email: '',
-          password: '',
-          confirmPassword: '',
-          errorMessage: ''
-        });
         navigate("/");
       } else {
-        const errorMessages = Object.entries(data.errors)
-          .map(([field, messages]) => messages.map(msg => `${msg}`))
-          .flat()
-          .join('\n');
+        const errorMessages = data.errors ? Object.entries(data.errors).map(([field, messages]) => messages.map(msg => `${msg}`)).flat() : [data.message || 'Something went wrong.'];
 
         setFormData((prev) => ({
           ...prev,
@@ -107,11 +102,11 @@ export default function SignUp() {
 
   return (
     <div className='page'>
-<div className='photos'>
-  {Photos.map((photoSet, index) => (
-    <PhotoSlider key={index} sources={photoSet} />
-  ))}
-</div>
+      <div className='photos'>
+        {Photos.map((photoSet, index) => (
+          <PhotoSlider key={index} sources={photoSet} />
+        ))}
+      </div>
 
       <div className='block'>
         <div>

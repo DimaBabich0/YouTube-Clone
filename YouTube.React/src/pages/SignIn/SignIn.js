@@ -59,34 +59,33 @@ export default function SignIn() {
         body: JSON.stringify({ email, password })
       });
 
-      const data = await response.json();
+      let text = await response.text();
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (error) {
+        data = { message: text };
+      }
 
       if (response.ok) {
-        setFormData({
-          email: '',
-          password: '',
-          errorMessage: ''
-        });
         navigate('/');
       } else {
-        const errorMessages = Object.entries(data.errors)
-          .map(([field, messages]) => messages.map(msg => `${msg}`))
-          .flat()
-          .join('\n');
+        const errorMessages = data.errors ? Object.entries(data.errors).map(([field, messages]) => messages.map(msg => `${msg}`)).flat() : [data.message || 'Something went wrong.'];
 
         setFormData((prev) => ({
           ...prev,
-          errorMessage: errorMessages || 'Something went wrong. Try again.'
+          errorMessage: errorMessages.join(' ')
         }));
       }
     } catch (error) {
-      console.error('Sign-in error:', error);
+      console.log('Sign-in error:', error);
       setFormData((prev) => ({
         ...prev,
         errorMessage: 'Server error. Please try again later.'
       }));
     }
   };
+
 
   const handleButtonClick = () => {
     sendToDatabase();
