@@ -1,0 +1,179 @@
+.page
+{
+  overflow: hidden;
+
+  width: 100%;
+  height: 100vh;
+
+  font-family: Jura;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 96px;
+
+  padding: 50px;
+
+  background: radial-gradient(117.45% 428.74% at -15.57% -12.7%, #6486DB 0%, #000000 36.29%, #04080B 71.35%, #6486DB 100%);
+}
+
+.photos
+{
+  padding-left: 30%;
+  position: relative;
+  width: 1000%;
+  height: 100%;
+  z-index: 1;
+
+  gap: 20px;
+  margin-left: 50px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column; 
+}
+
+.block
+{
+  position: relative;
+  z-index: 2;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+
+  top: -100%;
+  width: 40%;
+  height: 100%;
+  background-color: black;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.text
+{
+  font-family: Jura;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+
+.flex-center
+{
+  display: flex;
+  flex-direction: center;
+  justify-content: center;
+}
+
+.mainText
+{
+  color: white;
+  text-transform: uppercase;
+}
+
+.specialText
+{
+  color: #6486DB;
+}
+
+.input
+{
+  width: 100%;
+  padding: 20px 20px;
+  margin: 10px 0;
+  display: inline-block;
+  border: 2px solid white;
+  border-radius: 25px;
+  box-sizing: border-box;
+  background-color: black;
+  color: white;
+  font-family: 'Jura', sans-serif; 
+  font-size: 20px;
+}
+
+.input:focus {
+  outline: none;
+  border-color: white; 
+}
+
+.input::placeholder 
+{
+  color: white;
+  font-family: 'Jura', sans-serif; 
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.passwordSection
+{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  
+}
+
+.link
+{
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 400;
+
+  position: absolute;
+  color: white;
+  text-decoration: none;
+  padding-right: 20px;
+}
+
+.bottomSection
+{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoSection
+{
+  display: flex;
+  flex-direction: row;
+}
+.logoSection > a > img
+{
+  padding: 0px 5px;
+}
+
+.sign-in-button
+{
+  width: 50%;
+  padding: 20px 30px 20px 30px;
+  gap: 0px;
+  opacity: 0px;
+  border-radius: 50px;
+  color: white;
+  background-color: #6486DB;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sign-in-button:hover {
+  background-color: #466bb8; /* темнее при наведении */
+}
+
+
+.sign-in-button p
+{
+  font-family: Jura;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 20px;
+  text-align: center;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.5em;
+  margin-top: 0.5em;
+  text-align: center;
+
+  line-height: 1.2;
+
+}

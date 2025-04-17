@@ -1,7 +1,7 @@
 import MainPage from "./pages/MainPage/MainPage";
 import VideoPage from "./pages/Video/Video";
-import SignIn from "./pages/SignIn/SignIn";
-import SignUp from "./pages/SignUp/SignUp";
+import SignIn from "./pages/SignIn_SignUp/SignIn";
+import SignUp from "./pages/SignIn_SignUp/SignUp";
 import Subscriptions from "./pages/Subscriptions/Subscriptions";
 import Channel from "./pages/Channel/Channel";
 
