@@ -55,6 +55,11 @@ export default function SignIn() {
       }
 
       if (response.ok) {
+        setFormData({
+          email: '',
+          password: '',
+          errorMessage: ''
+        });
         navigate('/');
       } else {
         const errorMessages = data.errors ? Object.entries(data.errors).map(([field, messages]) => messages.map(msg => `${msg}`)).flat() : [data.message || 'Something went wrong.'];
