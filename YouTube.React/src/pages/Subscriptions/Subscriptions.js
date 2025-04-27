@@ -9,34 +9,6 @@ const videoData = [
       channel: "SKVOT",
       views: "12,9k subscribers",
       date: "1 year ago",
-    },
-    {
-      src: "./images/previews/t2.png",
-      name: "@name",
-      channel: "Universal Pictures",
-      views: "12,9k subscribers",
-      date: "1 year ago",
-    },
-    {
-      src: "./images/previews/t3.png",
-      name: "@name",
-      channel: "St3inway",
-      views: "12,9k subscribers",
-      date: "1 year ago",
-    },
-    {
-      src: "./images/previews/t4.png",
-      name: "@name",
-      channel: "St3inway",
-      views: "12,9k subscribers",
-      date: "1 year ago",
-    },
-    {
-      src: "./images/previews/t4.png",
-      name: "@name",
-      channel: "St3inway",
-      views: "12,9k subscribers",
-      date: "1 year ago",
     }
   ];
   
@@ -62,29 +34,11 @@ export default function Subscriptions()
         <div className='subscriptions'> 
             <div className='grid-container'>
                 <div className='section-grid wrapper'>
-                <h1 className='section-name'>Top 10 on this week</h1>
-                <section className='subscriptions-grid'>
-                    {renderVideos(videoData)}
-                </section>
-                </div>
-                <div className='section-grid wrapper'>
-                <h1 className='section-name'>Continue Watching</h1>
-                <section className='subscriptions-grid'>
-                    {renderVideos(videoData)}
-                </section>
-                </div>
-                <div className='section-grid wrapper'>
-                <h1 className='section-name'>Popular</h1>
-                <section className='subscriptions-grid'>
-                    {renderVideos(videoData)}
-                </section>
-                </div>
-                <div className='section-grid wrapper'>
-                <h1 className='section-name'>All Video</h1>
-                <section className='subscriptions-grid'>
-                    {renderVideos(videoData)}
-                </section>
-            </div>
+                  <h1 className='section-name'>Channels</h1>
+                  <section className='subscriptions-grid'>
+                      {renderVideos(videoData)}
+                  </section>
+              </div>
             </div>
         </div>
     )

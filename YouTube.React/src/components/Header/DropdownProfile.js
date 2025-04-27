@@ -1,13 +1,12 @@
-const dropdownSections = [
-
+const dropdownSections = (userData) => [
   {
     type: 'profile',
     items: [
-      { 
+      {
         src: './images/header-images/acc.svg',
         alt: 'Profile',
-        channelName: 'LiLia Hmel',
-        userName: '@kltrons'
+        channelName: userData?.channelName || 'Unknown Channel',
+        userName: '@' + (userData?.username || 'unknown')
       }
     ]
   },
@@ -18,14 +17,14 @@ const dropdownSections = [
         src: './images/header-images/dropdown-profile/person.svg',
         text: 'Your channel',
         arrow: false,
-        path: '/channel'
+        path: `/channel/${userData?.username}`
       },
       {
         src: './images/header-images/dropdown-profile/supervisor_account.svg',
         text: 'Switch account',
         arrow: true,
         path: '/sign-in'
-      },      
+      },
       {
         src: './images/header-images/dropdown-profile/domino_mask.svg',
         text: 'Enable incognito mode',

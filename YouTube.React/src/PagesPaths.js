@@ -11,7 +11,7 @@ const pages = [
         component: MainPage 
     },
     { 
-        path: '/video', 
+        path: '/video/:id',
         component: VideoPage 
     },
     { 
@@ -31,9 +31,9 @@ const pages = [
         component: Subscriptions 
     },
     { 
-        path: '/channel', 
+        path: '/channel/:id', 
         component: Channel 
-    }
+    },
 ]
 
 export default pages;

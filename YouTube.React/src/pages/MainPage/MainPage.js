@@ -1,66 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './MainPage.css';
 
-const videoData = [
-  {
-    src: "./images/previews/t1.png",
-    name: "C4D 2023 Tutorial: Abstract Flowers with Hair, Dynamics and Redshift",
-    channel: "SKVOT",
-    views: "12K views",
-    date: "1 year ago",
-  },
-  {
-    src: "./images/previews/t2.png",
-    name: "Five Nights At Freddy's | Official Teaser",
-    channel: "Universal Pictures",
-    views: "12K views",
-    date: "1 year ago",
-  },
-  {
-    src: "./images/previews/t3.png",
-    name: "Rush E",
-    channel: "St3inway",
-    views: "12K views",
-    date: "1 year ago",
-  },
-  {
-    src: "./images/previews/t4.png",
-    name: "'Before Your Very Eyes...Atoms for Peace -MAMA JAMMA (Live cover)",
-    channel: "St3inway",
-    views: "12K views",
-    date: "1 year ago",
-  }
+const chipNames = [
+  'All', 'Music', 'Jams', 'Podcasts', 'Comedy', 'Live', 'Selena Gomez', 'Manga', 'Game Shows', 'Spiderman', 'Existential Dread', 'Horrors Beyond Comprehension'
 ];
 
 const renderVideos = (videos) => {
-  return videos.map((video, index) => (
-    <Link to='/video'>
-    <div className='item-wrapper' key={index}>
-      <img className='thumbnail' src={video.src} alt="Video thumbnail" />
-      <div className='info-section'>
-        <img className='profile-picture' src={video.src}/>
-        <div className='text-section'>
-          <h1 className='video-name'>{video.name}</h1>
-          <p className='channel-name'>{video.channel}</p>
-          <div className='row'>
-            <p className='video-info'>{video.views}</p>
-            <p className='video-info'>{video.date}</p>
+  return videos.map((video) => (
+    <Link to={`/video/${video.id}`} key={video.id}>
+      <div className='item-wrapper'>
+        <img className='thumbnail' src={video.thumbnailPath} alt="Video thumbnail" />
+        <div className='info-section'>
+          <img className='profile-picture' src={video.profilePicturePath} alt="Channel profile" />
+          <div className='text-section'>
+            <h1 className='video-name'>{video.title}</h1>
+            <p className='channel-name'>{video.channelName}</p>
+            <div className='row'>
+              <p className='video-info'>{video.viewCount} views</p>
+              <p className='video-info'>{video.uploadDate}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </Link>
   ));
 };
 
-const chipNames = [
-  'All', 'Music', 'Jams', 'Podcasts', 'Comedy', 'Live', 'Selena Gomez', 'Manga', 'Game Shows', 'Spiderman', 'Existential Dread', 'Horrors Beyond Comprehension'
-]; 
-
 export default function MainPage() {
-
   const [activeButton, setActiveButton] = useState(0);
+  const [videoData, setVideoData] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5103/videos')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Ошибка при загрузке видео');
+        }
+        return response.json();
+      })
+      .then(data => {
+        data.forEach(video => {
+          video.profilePicturePath = "http://localhost:5103" + video.profilePicturePath;
+          video.thumbnailPath = "http://localhost:5103" + video.thumbnailPath;
+        });
+        setVideoData(data);
+      })
+      .catch(error => {
+        console.error('Ошибка при получении видео:', error);
+      });
+  }, []);
 
   return(
     <div className="main">
@@ -125,31 +114,24 @@ export default function MainPage() {
       </div>
 
       <div className='grid-container'>
+
         <div className='section-grid wrapper'>
           <h1 className='section-name'>Top 10 on this week</h1>
           <section className='video-grid'>
             {renderVideos(videoData)}
           </section>
         </div>
+
+        {/* 
         <div className='section-grid wrapper'>
           <h1 className='section-name'>Continue Watching</h1>
           <section className='video-grid'>
             {renderVideos(videoData)}
           </section>
         </div>
-        <div className='section-grid wrapper'>
-          <h1 className='section-name'>Popular</h1>
-          <section className='video-grid'>
-            {renderVideos(videoData)}
-          </section>
-        </div>
-        <div className='section-grid wrapper'>
-          <h1 className='section-name'>All Video</h1>
-          <section className='video-grid'>
-            {renderVideos(videoData)}
-          </section>
-        </div>
+        */}
+         
       </div>
     </div>
-  )
+  );
 }

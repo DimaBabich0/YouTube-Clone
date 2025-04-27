@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import PhotoSlider from './Component/PhotoSlider/PhotoSlider.js';
 import { Link, useNavigate } from 'react-router-dom';
 import SocialIcons from './Component/SocialIcons/SocialIcons';
-
-
+import Cookies from 'js-cookie';
 
 export default function SignIn() {
+  Cookies.remove('username');
   const navigate = useNavigate();
 
-// Храним данные формы для авторизации (email, password) и текст ошибки
+  // Храним данные формы для авторизации (email, password) и текст ошибки
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -26,11 +26,11 @@ export default function SignIn() {
     }));
   };
 
-// Проверка формы и отправка данных на сервер для авторизации
+  // Проверка формы и отправка данных на сервер для авторизации
   const sendToDatabase = async () => {
     const { email, password } = formData;
 
-// Проверка на наличие введённых данных в поля email и password
+    // Проверка на наличие введённых данных в поля email и password
     if (!email || !password) {
       setFormData((prev) => ({
         ...prev,
@@ -39,8 +39,9 @@ export default function SignIn() {
       return;
     }
 
+    // Отправка данных на сервер для авторизации пользователя
     try {
-      const response = await fetch('http://localhost:5103/Sign/In', {// Отправка данных на сервер для авторизации пользователя
+      const response = await fetch('http://localhost:5103/Sign/In', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
@@ -55,22 +56,20 @@ export default function SignIn() {
       }
 
       if (response.ok) {
-        setFormData({
-          email: '',
-          password: '',
-          errorMessage: ''
-        });
-        navigate('/');
+        Cookies.set('username', data.message);
+        alert("You are logged into your account");
+        navigate("/", { replace: true });
+        window.location.reload();
       } else {
         const errorMessages = data.errors ? Object.entries(data.errors).map(([field, messages]) => messages.map(msg => `${msg}`)).flat() : [data.message || 'Something went wrong.'];
-// Обработка и вывод ошибок, если сервер вернул их
+        // Обработка и вывод ошибок, если сервер вернул их
         setFormData((prev) => ({
           ...prev,
           errorMessage: errorMessages.join(' ')
         }));
       }
     } catch (error) {
-      console.log('Sign-in error:', error);// Логирование ошибки, если сервер не доступен или произошла сетевая ошибка
+      console.log('Sign-in error:', error);
       setFormData((prev) => ({
         ...prev,
         errorMessage: 'Server error. Please try again later.'
@@ -78,7 +77,7 @@ export default function SignIn() {
     }
   };
 
-// Запуск процесса авторизации по клику на кнопку "Sign in"
+  // Запуск процесса авторизации по клику на кнопку "Sign in"
   const handleButtonClick = () => {
     sendToDatabase();
   };
@@ -131,7 +130,7 @@ export default function SignIn() {
         )}
 
         <div className='bottomSection'>
-        <SocialIcons />
+          <SocialIcons />
           <button className='sign-in-button' type="button" onClick={handleButtonClick}>
             <p className='text'>Sign in</p>
           </button>
@@ -142,8 +141,8 @@ export default function SignIn() {
         </Link>
         <br />
       </div>
-      
+
     </div>
-    
+
   );
 }

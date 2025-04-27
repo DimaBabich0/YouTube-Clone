@@ -22,7 +22,7 @@ const VideoSettings = ({
 
           <div className="dropup-item-option">
             <p>Ordinary</p>
-            <img className='arrow' src='./images/header-images/arrow_forward_ios.svg' alt='Arrow' />
+            <img className='arrow' src='/images/header-images/arrow_forward_ios.svg' alt='Arrow' />
           </div>
         </div>
 
@@ -31,7 +31,7 @@ const VideoSettings = ({
           
           <div className="dropup-item-option">
             <p>Autotune (480p)</p>
-            <img className='arrow' src='./images/header-images/arrow_forward_ios.svg' alt='Arrow' />
+            <img className='arrow' src='/images/header-images/arrow_forward_ios.svg' alt='Arrow' />
           </div>
         </div>
 
@@ -40,7 +40,7 @@ const VideoSettings = ({
           
           <div className="dropup-item-option">
             <p>Off</p>
-            <img className='arrow' src='./images/header-images/arrow_forward_ios.svg' alt='Arrow' />
+            <img className='arrow' src='/images/header-images/arrow_forward_ios.svg' alt='Arrow' />
           </div>
         </div>
       </div>

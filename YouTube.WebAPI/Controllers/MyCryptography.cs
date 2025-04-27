@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace HW09.Controllers
+namespace YouTube.WebAPI.Controllers
 {
     public class MyCryptography
     {

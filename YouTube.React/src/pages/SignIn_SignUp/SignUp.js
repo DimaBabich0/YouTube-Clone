@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import PhotoSlider from './Component/PhotoSlider/PhotoSlider.js';
 import { useNavigate } from 'react-router-dom';
 import SocialIcons from './Component/SocialIcons/SocialIcons';
-
 import icon_Arrow from './Images/icon_arrow_insert.svg';
+import Cookies from 'js-cookie';
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -63,7 +63,10 @@ export default function SignUp() {
       }
 
       if (response.ok) {
-        navigate("/");
+        Cookies.set('username', data.message);
+        alert("You are logged into your account");
+        navigate("/", { replace: true });
+        window.location.reload();
       } else {
         const errorMessages = data.errors ? Object.entries(data.errors).map(([field, messages]) => messages.map(msg => `${msg}`)).flat() : [data.message || 'Something went wrong.'];
 

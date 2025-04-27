@@ -32,33 +32,33 @@ namespace YouTube.DAL.EF
                 .HasKey(obj => new { obj.VideoId, obj.UserId });
 
             modelBuilder.Entity<Subscription>()
-                .HasKey(obj => new { obj.UserId, obj.ChannelId});
+                .HasKey(obj => new { obj.UserId, obj.ChannelId });
 
             modelBuilder.Entity<PlaylistVideo>()
                 .HasKey(obj => new { obj.PlaylistId, obj.VideoId });
 
-            modelBuilder.Entity<Subscription>()
-                .HasOne(s => s.User)
-                .WithMany(u => u.Subscriptions)
-                .OnDelete(DeleteBehavior.Restrict);
+            //modelBuilder.Entity<Subscription>()
+            //    .HasOne(s => s.User)
+            //    .WithMany(u => u.Subscriptions)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<VideoLike>()
-                .HasOne(vl => vl.Video)
-                .WithMany(v => v.VideoLikes)
-                .HasForeignKey(vl => vl.VideoId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //modelBuilder.Entity<VideoLike>()
+            //    .HasOne(vl => vl.Video)
+            //    .WithMany(v => v.VideoLikes)
+            //    .HasForeignKey(vl => vl.VideoId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<VideoLike>()
-                .HasOne(vl => vl.User)
-                .WithMany(u => u.VideoLikes)
-                .HasForeignKey(vl => vl.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
+            //modelBuilder.Entity<VideoLike>()
+            //    .HasOne(vl => vl.User)
+            //    .WithMany(u => u.VideoLikes)
+            //    .HasForeignKey(vl => vl.UserId)
+            //    .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<PlaylistVideo>()
-                .HasOne(pv => pv.Video)
-                .WithMany(v => v.PlaylistVideos)
-                .HasForeignKey(pv => pv.VideoId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //modelBuilder.Entity<PlaylistVideo>()
+            //    .HasOne(pv => pv.Video)
+            //    .WithMany(v => v.PlaylistVideos)
+            //    .HasForeignKey(pv => pv.VideoId)
+            //    .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(modelBuilder);
         }

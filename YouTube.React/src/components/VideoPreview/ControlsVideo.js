@@ -47,7 +47,7 @@ const ControlsVideo = ({
         onClick={handlePlay}
         onDoubleClick={handleFullScreen}
         >
-        <img className="lock-select" style={{display: !playing ? 'block': 'none'}} src="./images/video-player/play_circle.svg"/>
+        <img className="lock-select" style={{display: !playing ? 'block': 'none'}} src="/images/video-player/play_circle.svg"/>
       </div>
 
       <div className="videoControls">
@@ -73,11 +73,11 @@ const ControlsVideo = ({
 
         <div className="videoButtons">
           <div className="videoButtons-part">
-            <img className="icon" src="./images/video-player/skip_previous.svg"/>
+            <img className="icon" src="/images/video-player/skip_previous.svg"/>
 
-            <img onClick={handlePlay} className="icon" src={`./images/video-player/${playing ? 'pause_circle.svg' : 'play_arrow.svg'}`} />
+            <img onClick={handlePlay} className="icon" src={`/images/video-player/${playing ? 'pause_circle.svg' : 'play_arrow.svg'}`} />
 
-            <img className="icon" src="./images/video-player/skip_next.svg"/>
+            <img className="icon" src="/images/video-player/skip_next.svg"/>
 
             <div
               className="videoVolume"
@@ -85,8 +85,8 @@ const ControlsVideo = ({
               onMouseLeave={handleMouseLeave}
               >
                 <div className="flex-center" onClick={handleMuted} >
-                  <img className="icon" src="./images/video-player/primary-stroke.svg"/>
-                  <img className="icon" src={`./images/video-player/${(muted || volume == 0) ? 'none-stroke.svg' : 'volume-stroke.svg'}`}/>
+                  <img className="icon" src="/images/video-player/primary-stroke.svg"/>
+                  <img className="icon" src={`/images/video-player/${(muted || volume == 0) ? 'none-stroke.svg' : 'volume-stroke.svg'}`}/>
                 </div>
 
               {showVolumeSlider ? (
@@ -109,12 +109,12 @@ const ControlsVideo = ({
               <VideoSettings
                 showSettings={showSettings}
               />
-              <img onClick={handleShowSettings} className="icon" src="./images/video-player/setting.svg"/>
+              <img onClick={handleShowSettings} className="icon" src="/images/video-player/setting.svg"/>
             </div>
 
-            <img className="icon" src="./images/video-player/subtitles.svg"/>
+            <img className="icon" src="/images/video-player/subtitles.svg"/>
 
-            <img onClick={handleFullScreen} src="./images/video-player/fullscreen.svg"/>
+            <img onClick={handleFullScreen} src="/images/video-player/fullscreen.svg"/>
           </div>
         </div>
       </div>

@@ -5,7 +5,6 @@ import sidebarSections from './SidebarSections';
 import NavbarMobile from '../NavbarMobile/NavbarMobile';
 
 const renderItems = (sections, isExpanded, handleShowMoreClick) => {
-
   return sections.map((section, sectionIndex) => {
     if (section.type === 'subscriptions') {
       return (
@@ -29,7 +28,7 @@ const renderItems = (sections, isExpanded, handleShowMoreClick) => {
             <button className='btn-toggle' onClick={handleShowMoreClick}>
               {isExpanded ? 'Show less' : 'Show more'}
               <img
-                src='./images/expand_more.svg'
+                src='/images/expand_more.svg'
                 className={`toggle-icon ${isExpanded ? 'rotated' : ''}`}
                 alt="Toggle icon"
               />
@@ -54,7 +53,7 @@ const renderItems = (sections, isExpanded, handleShowMoreClick) => {
   });
 };
 
-  export default function Sidebar() {
+export default function Sidebar({ userData }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   useEffect(() => {

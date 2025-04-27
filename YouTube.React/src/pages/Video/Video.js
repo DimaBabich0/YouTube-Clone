@@ -170,7 +170,6 @@ const VideoPage = () => {
     <div className="video-page">
       <main className="main-content">
         <div className="video-container">
-
           <VideoPreview urlVideo={'https://www.youtube.com/embed/icaSda6Rrrg'} />
         </div>
         <div className="video-title">

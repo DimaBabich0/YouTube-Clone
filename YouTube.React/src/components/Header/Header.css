@@ -1,121 +1,125 @@
-* { 
-    box-sizing: border-box; 
-} 
-.header { 
-    background-color: #000000; 
-    position: fixed;  
-    top: 0;  
-    width: 100%;  
-    display: flex; 
-    flex-direction: row; 
-    z-index: 101; 
-  } 
-.header-spacer 
-{ 
-    width: 100%;  
-    background-color: rgb(0, 0, 0); 
-} 
-.header, .header-spacer 
-{ 
-    height: 96px; 
-} 
-.header .section 
-{ 
-    width: 100%; 
-    display: flex; 
-    flex-direction: row; 
-    align-items: center; 
- 
-} 
-.header > * 
-{ 
-    box-sizing: border-box; 
-} 
-.section.middle { 
-    justify-content: center; 
-} 
-.section.right { 
-    justify-content: end; 
-    margin-right: 50px; 
-} 
-    .right img, .icon-mic
-    { 
-        margin-left: 15px; 
-        cursor: pointer; 
-    } 
-     
-.section.left { 
-    justify-content: start; 
-    margin-left: 50px; 
-} 
+* {
+    box-sizing: border-box;
+}
 
-.input-container 
-{ 
-    position: relative; 
-    display: flex; 
-    align-items: center; 
-    justify-content: end; 
-} 
-.icon-search 
-{ 
-    position: absolute; 
-    margin-right: 15px; 
-    cursor: pointer; 
-} 
-.header .input-search { 
-    background-color: initial; 
-    height: 44px; 
-    width: 537px; 
-    border-radius: 50px; 
-    border: 1px solid #4e4e4e; 
-    padding: 10px 30px 10px 30px; 
-    box-sizing: border-box; 
-    background-position: 482px 9px; 
-    background-repeat: no-repeat; 
-    color: white; 
-    font-weight: 400; 
-    font-size: 1em; 
-} 
-    .header .input-search:focus 
-    { 
-        outline: none; 
-    } 
+.header {
+    background-color: #000000;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    z-index: 101;
+}
+
+.header-spacer {
+    width: 100%;
+    background-color: rgb(0, 0, 0);
+}
+
+.header,
+.header-spacer {
+    height: 96px;
+}
+
+.header .section {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.header>* {
+    box-sizing: border-box;
+}
+
+.section.middle {
+    justify-content: center;
+}
+
+.section.right {
+    justify-content: end;
+    margin-right: 50px;
+}
+
+.right img,
+.icon-mic {
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+.section.left {
+    justify-content: start;
+    margin-left: 50px;
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.icon-search {
+    position: absolute;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.header .input-search {
+    background-color: initial;
+    height: 44px;
+    width: 537px;
+    border-radius: 50px;
+    border: 1px solid #4e4e4e;
+    padding: 10px 30px 10px 30px;
+    box-sizing: border-box;
+    background-position: 482px 9px;
+    background-repeat: no-repeat;
+    color: white;
+    font-weight: 400;
+    font-size: 1em;
+}
+
+.header .input-search:focus {
+    outline: none;
+}
 
 .dropdown {
     position: relative;
     display: inline-block;
 }
-.dropdown .section
-{
+
+.dropdown .section {
     width: 100%;
     border-bottom: 1px solid rgba(255, 255, 255, 0.336);
     display: flex;
     flex-direction: column;
-    color: white    ;
+    color: white;
 }
-    .section .profile
-    {
-        display: flex;
-        flex-direction: row;
 
-        img
-        {
-            width: 44px;
-            height: 44px;
-            margin: 10px;
-        }
+.section .profile {
+    display: flex;
+    flex-direction: row;
 
-        .channel-name
-        {
-            font-size: 1em;
-            font-weight: 400;
-        }
-        .user-name
-        {
-            font-size: 0.9em;
-        }
-
+    img {
+        width: 44px;
+        height: 44px;
+        margin: 10px;
     }
+
+    .channel-name {
+        font-size: 1em;
+        font-weight: 400;
+    }
+
+    .user-name {
+        font-size: 0.9em;
+    }
+
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -126,8 +130,8 @@
     border-radius: 10px;
     overflow: hidden;
 }
-.dropdown-scroll
-{
+
+.dropdown-scroll {
     width: 100%;
 
 }
@@ -135,6 +139,7 @@
 .dropdown-content-scroll::-webkit-scrollbar {
     width: 5px;
 }
+
 .dropdown-content-scroll::-webkit-scrollbar-thumb {
     background: #101014;
     border-radius: 10px;
@@ -153,42 +158,45 @@
         text-align: center;
         font-size: 15px;
     }
-    img
-    {
+
+    img {
         width: 26px;
         height: 26px;
         margin: 8px;
     }
-    .arrow
-    {
+
+    .arrow {
         height: 15px;
         width: 15px;
     }
 }
 
 .dropdown-content .section:last-child {
-    border-bottom: none; 
+    border-bottom: none;
 }
 
-.dropdown .dropdown-item:hover {background-color: rgba(255, 255, 255, 0.09);}
+.dropdown .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.09);
+}
 
-.show {display: block;}
+.show {
+    display: block;
+}
 
-.toggle-search
-{
+.toggle-search {
     display: none;
 }
-.section.middle.resize
-{
-    display: flex!important;
+
+.section.middle.resize {
+    display: flex !important;
 }
-.header .input-search.resize
-{
-    width: 60vw!important;  
+
+.header .input-search.resize {
+    width: 60vw !important;
 }
-.minimize-body
-{
-    background-color: rgba(217, 217, 217, 0.12); 
+
+.minimize-body {
+    background-color: rgba(217, 217, 217, 0.12);
     width: 44px;
     height: 44px;
     border-radius: 100px;
@@ -199,39 +207,66 @@
     cursor: pointer;
     display: none;
 }
-@media (max-width: 950px) { 
-    .section.middle
-    {
+
+@media (max-width: 950px) {
+    .section.middle {
         display: none;
     }
-    .minimize-body
-    {
+
+    .minimize-body {
         display: flex;
     }
 
-.toggle-search
-{
-    display: initial;
+    .toggle-search {
+        display: initial;
+    }
 }
-}
+
 .dropdown-scroll::-webkit-scrollbar {
-    width: 0; 
-    background: transparent; 
+    width: 0;
+    background: transparent;
 }
-@media (max-width: 900px) { 
-    .section.right { 
-        margin-right: 30px; 
-        
-    } 
-    .section.left { 
-        margin-left: 30px; 
-    } 
+
+@media (max-width: 900px) {
+    .section.right {
+        margin-right: 30px;
+
+    }
+
+    .section.left {
+        margin-left: 30px;
+    }
 }
+
 @media (max-height: 681px) {
-    .dropdown-scroll
-    {
+    .dropdown-scroll {
         width: 100%;
         height: 275px;
         overflow-y: auto;
     }
+}
+
+.sectionProfilePicture {
+    width: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.dropdownProfilePicture {
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.login-button {
+    padding: 20px 20px;
+    gap: 0px;
+    opacity: 0px;
+    border-radius: 50px;
+    color: white;
+    background-color: #6486DB;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }

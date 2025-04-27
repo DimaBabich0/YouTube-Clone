@@ -1,4 +1,4 @@
-﻿using HW09.Controllers;
+﻿using YouTube.WebAPI.Controllers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
@@ -66,7 +66,7 @@ namespace YouTube.WebAPI.Controllers
             await _context.Users.AddAsync(newUser);
             await _context.SaveChangesAsync();
 
-            return Ok(newUser);
+            return Ok(newUser.Username);
         }
 
         [HttpPost("In")]
@@ -93,7 +93,7 @@ namespace YouTube.WebAPI.Controllers
                 return BadRequest(new { message = "Invalid email or password." });
             }
 
-            return Ok(user);
+            return Ok(user.Username);
         }
     }
 }
