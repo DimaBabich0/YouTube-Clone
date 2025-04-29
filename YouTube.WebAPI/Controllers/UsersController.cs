@@ -29,7 +29,7 @@ namespace YouTube.WebAPI.Controllers
 
             var user = await _context.Users
                 .Include(u => u.Channel)
-                .FirstOrDefaultAsync(u => u.Username == username);
+                .FirstOrDefaultAsync(u => u.ChannelId == username);
 
             if (user == null)
             {
@@ -38,9 +38,9 @@ namespace YouTube.WebAPI.Controllers
 
             var userDto = new UserDTO
             {
-                Username = user.Username,
-                ChannelName = user.Channel.Name,
-                ProfilePicture = user.Channel.ProfilePicturePath
+                Id = user.Channel.Id,
+                Name = user.Channel.Name,
+                PicturePath = user.Channel.PicturePath
             };
 
             return Ok(userDto);

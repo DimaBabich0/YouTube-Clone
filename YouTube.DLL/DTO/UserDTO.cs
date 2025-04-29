@@ -8,8 +8,8 @@ namespace YouTube.BLL.DTO
 {
     public class UserDTO
     {
-        public string Username { get; set; }
-        public string ChannelName { get; set; }
-        public string ProfilePicture { get; set; }
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string PicturePath { get; set; }
     }
 }

@@ -28,15 +28,6 @@ namespace YouTube.DAL.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<VideoLike>()
-                .HasKey(obj => new { obj.VideoId, obj.UserId });
-
-            modelBuilder.Entity<Subscription>()
-                .HasKey(obj => new { obj.UserId, obj.ChannelId });
-
-            modelBuilder.Entity<PlaylistVideo>()
-                .HasKey(obj => new { obj.PlaylistId, obj.VideoId });
-
             //modelBuilder.Entity<Subscription>()
             //    .HasOne(s => s.User)
             //    .WithMany(u => u.Subscriptions)

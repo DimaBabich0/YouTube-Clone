@@ -9,8 +9,9 @@ import Header from './components/Header/Header';
 // import NavbarMobile from './components/NavbarMobile/NavbarMobile';
 
 function App() {
-  const [userData, setUserData] = useState(Cookies.get('username')); 
-  
+  const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const username = Cookies.get('username');
     if (username) {
@@ -22,31 +23,36 @@ function App() {
           return response.json();
         })
         .then(data => {
-          data.profilePicture = 'http://localhost:5103' + data.profilePicture;
+          data.picturePath = 'http://localhost:5103' + data.picturePath;
           setUserData(data);
+          setIsLoading(false);
         })
         .catch(error => {
           console.error('Ошибка при получении данных пользователя:', error);
           setUserData(null);
+          setIsLoading(false);
         });
     } else {
       setUserData(null);
+      setIsLoading(false);
     }
   }, []);
 
   return (
     <Router>
-      <RouterApp userData={userData} />
+      <RouterApp userData={userData} isLoading={isLoading} />
     </Router>
   );
 }
 
-function RouterApp({ userData }) {
+function RouterApp({ userData, isLoading }) {
   const location = useLocation();
   const noHeader = ['/sign-in', '/sign-up'];
 
   const showHeader = !noHeader.includes(location.pathname);
   const showNavbar = showHeader;
+
+  if (isLoading) return null;
 
   return (
     <>

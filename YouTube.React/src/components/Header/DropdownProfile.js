@@ -5,8 +5,8 @@ const dropdownSections = (userData) => [
       {
         src: './images/header-images/acc.svg',
         alt: 'Profile',
-        channelName: userData?.channelName || 'Unknown Channel',
-        userName: '@' + (userData?.username || 'unknown')
+        channelName: userData?.name || 'Unknown Channel',
+        userName: '@' + (userData?.id || 'unknown')
       }
     ]
   },
@@ -17,7 +17,7 @@ const dropdownSections = (userData) => [
         src: './images/header-images/dropdown-profile/person.svg',
         text: 'Your channel',
         arrow: false,
-        path: `/channel/${userData?.username}`
+        path: `/channel/${userData?.id}`
       },
       {
         src: './images/header-images/dropdown-profile/supervisor_account.svg',

@@ -20,7 +20,7 @@ namespace YouTube.WebAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<UserDTO>> GetVideos()
+        public async Task<ActionResult<VideoDTO>> GetVideos()
         {
             var videos = await _context.Videos
                 .Include(v => v.Channel)
@@ -33,7 +33,7 @@ namespace YouTube.WebAPI.Controllers
                     ViewCount = v.ViewCount,
                     Duration = v.Duration,
                     ChannelName = v.Channel.Name,
-                    ProfilePicturePath = v.Channel.ProfilePicturePath
+                    ProfilePicturePath = v.Channel.PicturePath
                 })
                 .ToListAsync();
 

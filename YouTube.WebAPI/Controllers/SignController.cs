@@ -21,14 +21,14 @@ namespace YouTube.WebAPI.Controllers
         }
 
         [HttpPost("Up")]
-        public async Task<ActionResult<User>> SignUp(UserSignUpDTO userData)
+        public async Task<ActionResult<string>> SignUp(UserSignUpDTO userData)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            bool usernameExists = await _context.Users.AnyAsync(u => u.Username == userData.Username);
+            bool usernameExists = await _context.Channels.AnyAsync(u => u.Id == userData.Username);
             if (usernameExists)
             {
                 return BadRequest(new { message = "The user with the same name is already registered." });
@@ -42,8 +42,10 @@ namespace YouTube.WebAPI.Controllers
 
             Channel newChannel = new Channel
             {
+                Id = userData.Username,
                 Name = userData.Username,
-                ProfilePicturePath = "/Images/ProfileImages/DefaultAvatar.png",
+                PicturePath = "/Images/ProfileImages/DefaultAvatar.png",
+                BannerPath = "/Images/ProfileBanners/DefaultBanner.png",
                 SubscriberCount = 0,
                 CreatedDate = DateOnly.FromDateTime(DateTime.UtcNow)
             };
@@ -56,21 +58,21 @@ namespace YouTube.WebAPI.Controllers
 
             User newUser = new User
             {
-                Username = userData.Username,
                 Email = userData.Email,
                 PasswordHash = hash,
                 Salt = salt,
+                ChannelId = newChannel.Id,
                 Channel = newChannel
             };
 
             await _context.Users.AddAsync(newUser);
             await _context.SaveChangesAsync();
 
-            return Ok(newUser.Username);
+            return Ok(newUser.ChannelId);
         }
 
         [HttpPost("In")]
-        public async Task<ActionResult<User>> SignIn(UserSignInDTO userData)
+        public async Task<ActionResult<string>> SignIn(UserSignInDTO userData)
         {
             if (!ModelState.IsValid)
             {
@@ -93,7 +95,7 @@ namespace YouTube.WebAPI.Controllers
                 return BadRequest(new { message = "Invalid email or password." });
             }
 
-            return Ok(user.Username);
+            return Ok(user.ChannelId);
         }
     }
 }

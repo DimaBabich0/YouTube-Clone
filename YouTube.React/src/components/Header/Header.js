@@ -42,14 +42,15 @@ export default function Header({ userData }) {
   };
 
   const renderItems = (sections, userData) => {
+    console.log(userData);
     return sections.map((section, sectionIndex) => {
       if (section.type === 'profile' && userData) {
         return (
           <div className='section profile' key={sectionIndex}>
-            <img className='dropdownProfilePicture' src={userData.profilePicture || '/images/header-images/acc.svg'} alt={userData.userName} />
+            <img className='dropdownProfilePicture' src={userData.picturePath || '/images/header-images/acc.svg'} alt={userData.id} />
             <div>
-              <h1 className='channel-name'>{userData.channelName}</h1>
-              <p className='user-name'>{'@' + userData.username}</p>
+              <h1 className='channel-name'>{userData.name}</h1>
+              <p className='user-name'>{'@' + userData.id}</p>
             </div>
           </div>
         );
@@ -123,7 +124,7 @@ export default function Header({ userData }) {
                 <img src='/images/header-images/add-video.svg' alt='Video' />
                 <img src='/images/header-images/notification-alarm-bell_svgrepo.com.svg' alt='Bell' />
                 <img
-                  src={userData.profilePicture || '/images/header-images/acc.svg'}
+                  src={userData.picturePath}
                   className='sectionProfilePicture'
                   alt='Profile'
                   onClick={toggleDropdown}

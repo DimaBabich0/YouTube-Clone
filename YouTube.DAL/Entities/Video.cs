@@ -18,11 +18,11 @@ namespace YouTube.DAL.Entities
         public int ViewCount { get; set; }
         public int LikesCount { get; set; }
 
-        public int ChannelId { get; set; }
+        public string ChannelId { get; set; }
         public Channel Channel { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<VideoLike> VideoLikes { get; set; }
-        public ICollection<PlaylistVideo> PlaylistVideos { get; set; }
+        public ICollection<Comment> Comments { get; set; } = new List<Comment>();
+        public ICollection<VideoLike> VideoLikes { get; set; } = new List<VideoLike>();
+        public ICollection<PlaylistVideo> PlaylistVideos { get; set; } = new List<PlaylistVideo>();
     }
 }

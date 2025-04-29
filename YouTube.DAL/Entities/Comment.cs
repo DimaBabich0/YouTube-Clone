@@ -15,7 +15,7 @@ namespace YouTube.DAL.Entities
 
         public DateTime CreatedDate { get; set; }
 
-        public int VideoId { get; set; }
+        public string VideoId { get; set; }
         public Video Video { get; set; }
 
         public int UserId { get; set; }
@@ -25,6 +25,6 @@ namespace YouTube.DAL.Entities
         [ForeignKey("ParentCommentId")]
         public Comment ParentComment { get; set; }
 
-        public ICollection<Comment> Replies { get; set; }
+        public ICollection<Comment> Replies { get; set; } = new List<Comment>();
     }
 }

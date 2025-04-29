@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YouTube.DAL.Entities;
 
 namespace YouTube.BLL.DTO
 {
@@ -16,5 +17,8 @@ namespace YouTube.BLL.DTO
         public int ViewCount { get; set; }
         public int Duration { get; set; }
         public string ProfilePicturePath { get; set; }
+
+        public string ChannelId { get; set; }
+        public Channel Channel { get; set; }
     }
 }

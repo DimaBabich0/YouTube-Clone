@@ -20,7 +20,7 @@ namespace YouTube.DAL.Entities
         public User User { get; set; }
 
         [ForeignKey("Channel")]
-        public int ChannelId { get; set; }
+        public string ChannelId { get; set; }
         public Channel Channel { get; set; }
     }
 }

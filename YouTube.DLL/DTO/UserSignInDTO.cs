@@ -9,8 +9,6 @@ namespace YouTube.BLL.DTO
 {
     public class UserSignInDTO
     {
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "Email is required.")]
         [EmailAddress(ErrorMessage = "Invalid email format.")]
         public string Email { get; set; }
