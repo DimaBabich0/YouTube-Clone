@@ -2,13 +2,16 @@
   background-color: #0d0d0d;
   color: white;
   font-family: "Segoe UI", sans-serif;
+  width: 100%;
+  overflow: visible;
 }
 
 .channel-banner {
-  height: 200px;
+  height: 250px;
   background-size: cover;
   background-position: center;
   position: relative;
+  z-index: 1;
 }
 
 .edit-icon {
@@ -41,6 +44,7 @@
 .channel-settings-form {
   padding: 60px 50px 40px;
   max-width: 600px;
+  position: relative;
 }
 
 .channel-settings-form h2 {

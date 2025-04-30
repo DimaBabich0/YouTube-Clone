@@ -40,11 +40,10 @@ namespace YouTube.WebAPI.Controllers
             return Ok(videos);
         }
 
-
         [HttpGet("{Id}")]
         public async Task<ActionResult<DetailesVideoDTO>> GetDetailedVideo(string id)
         {
-            var videos = await _context.Videos
+            var video = await _context.Videos
                 .Include(v => v.Channel)
                 .Select(v => new DetailesVideoDTO
                 {
@@ -57,11 +56,11 @@ namespace YouTube.WebAPI.Controllers
                     ViewCount = v.ViewCount,
                     LikesCount = v.LikesCount,
                     ChannelName = v.Channel.Name,
-                   ProfilePicturePath = v.Channel.PicturePath
+                    ProfilePicturePath = v.Channel.PicturePath
                 })
                .FirstOrDefaultAsync(v => v.Id == id);
 
-            return Ok(videos);
+            return Ok(video);
         }
     }
 }

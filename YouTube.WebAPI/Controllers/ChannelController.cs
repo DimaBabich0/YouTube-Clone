@@ -19,8 +19,8 @@ namespace YouTube.WebAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("Settings/{username}")]
-        public async Task<ActionResult<ChannelSettingsDTO>> GetChannelSettings(string username)
+        [HttpGet("{username}")]
+        public async Task<ActionResult<ChannelDTO>> GetChannel(string username)
         {
             if (string.IsNullOrEmpty(username))
             {
@@ -28,6 +28,8 @@ namespace YouTube.WebAPI.Controllers
             }
 
             var channel = await _context.Channels
+                .Include(c => c.Videos)
+                //.Include(c => c.Playlists)
                 .FirstOrDefaultAsync(c => c.Id == username);
 
             if (channel == null)
@@ -35,68 +37,31 @@ namespace YouTube.WebAPI.Controllers
                 return NotFound(new { message = "Channel not found." });
             }
 
-            var channelSettingDTO = new ChannelSettingsDTO
+            var channelSettingDTO = new ChannelDTO
             {
                 Id = channel.Id,
                 Name = channel.Name,
                 Description = channel.Description,
                 PicturePath = channel.PicturePath,
-                BannerPath = channel.BannerPath
+                BannerPath = channel.BannerPath,
+                SubscriberCount = channel.SubscriberCount,
+                CreatedDate = channel.CreatedDate,
+                //Playlists = new List<Playlist>(),
+                Videos = channel.Videos.Select(v => new VideoDTO
+                {
+                    Id = v.Id,
+                    Title = v.Title,
+                    ThumbnailPath = v.ThumbnailPath,
+                    ChannelId = v.ChannelId,
+                    ChannelName = channel.Name,
+                    ProfilePicturePath = channel.PicturePath,
+                    UploadDate = v.UploadDate,
+                    ViewCount = v.ViewCount,
+                    Duration = v.Duration
+                }).ToList()
             };
 
             return Ok(channelSettingDTO);
-        }
-
-        [HttpPost("settings/upload")]
-        public async Task<IActionResult> UploadImage(IFormFile file, [FromForm] string type, [FromForm] string channelId)
-        {
-            Console.WriteLine($"aaaaaaaaaa: {channelId}");
-            if (file == null || file.Length == 0)
-                return BadRequest("Файл отсутствует");
-
-            var channel = await _context.Channels.FirstOrDefaultAsync(c => c.Id == channelId);
-            if (channel == null)
-                return NotFound("Канал не найден");
-
-            string folder = type == "picture" ? "ProfileImages" : "ProfileBanners";
-            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", folder);
-            Directory.CreateDirectory(uploadsFolder);
-
-            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-            var filePath = Path.Combine(uploadsFolder, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream);
-            }
-
-            var relativePath = $"/Images/{folder}/{fileName}";
-
-            if (type == "picture")
-                channel.PicturePath = relativePath;
-            else if (type == "banner")
-                channel.BannerPath = relativePath;
-            else
-                return BadRequest("Неверный тип");
-
-            await _context.SaveChangesAsync();
-
-            return Ok(new { path = relativePath });
-        }
-
-        [HttpPut("Settings/update")]
-        public async Task<IActionResult> UpdateChannel([FromBody] ChannelSettingsDTO model)
-        {
-            var channel = await _context.Channels.FirstOrDefaultAsync(c => c.Id == model.Id);
-            if (channel == null)
-                return NotFound("Канал не найден");
-
-            channel.Name = model.Name;
-            channel.Description = model.Description;
-
-            await _context.SaveChangesAsync();
-
-            return Ok("Канал обновлён");
         }
     }
 }
