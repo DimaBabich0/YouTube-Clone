@@ -16,7 +16,7 @@
   position: relative;
   width: 100%;
   height: 0;
-  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  padding-bottom: 56.25%;
   max-width: 100%;
   overflow: hidden;
   background: #000;
@@ -266,7 +266,7 @@ body {
 .icon-smile, .icon-at, .icon-send {
   cursor: pointer;
 }
-/* <div className="description"> */
+
 
 .description{
   margin-bottom: 20px ;
