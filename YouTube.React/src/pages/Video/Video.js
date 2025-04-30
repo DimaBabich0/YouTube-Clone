@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './Video.css';
 import VideoPreview from '../../components/VideoPreview/VideoPreview';
+import TimeAgo from './Component/TimeAgo';
 
 
 const VideoPage = () => {
@@ -106,8 +107,7 @@ const VideoPage = () => {
           <div className="actions">
             <span className="action-item" onClick={() => console.log('Likes clicked')}>
               <img src="/images/icons/heart.svg" alt="Favorite" />
-
-              <p>{video.likeCount} likes</p>
+              {video.likesCount} 
             </span>
             <span className="action-item" onClick={() => console.log('Forward clicked')}>
               <img src="/images/header-images/forward.svg" alt="Forward" />
@@ -125,7 +125,7 @@ const VideoPage = () => {
         </div>
         <div className="description">
           <p>
-            {video.uploadDate}<br /><br />
+          {video.viewCount} views • <TimeAgo date={video.uploadDate}/> <br /><br />
             {video.description}
           </p>
           <div className="additional-info">
