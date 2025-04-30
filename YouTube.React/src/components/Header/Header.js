@@ -42,7 +42,6 @@ export default function Header({ userData }) {
   };
 
   const renderItems = (sections, userData) => {
-    console.log(userData);
     return sections.map((section, sectionIndex) => {
       if (section.type === 'profile' && userData) {
         return (

@@ -3,7 +3,7 @@ const dropdownSections = (userData) => [
     type: 'profile',
     items: [
       {
-        src: './images/header-images/acc.svg',
+        src: '/images/header-images/acc.svg',
         alt: 'Profile',
         channelName: userData?.name || 'Unknown Channel',
         userName: '@' + (userData?.id || 'unknown')
@@ -14,24 +14,24 @@ const dropdownSections = (userData) => [
     type: 'dropdown',
     items: [
       {
-        src: './images/header-images/dropdown-profile/person.svg',
+        src: '/images/header-images/dropdown-profile/person.svg',
         text: 'Your channel',
         arrow: false,
         path: `/channel/${userData?.id}`
       },
       {
-        src: './images/header-images/dropdown-profile/supervisor_account.svg',
+        src: '/images/header-images/dropdown-profile/supervisor_account.svg',
         text: 'Switch account',
         arrow: true,
         path: '/sign-in'
       },
       {
-        src: './images/header-images/dropdown-profile/domino_mask.svg',
+        src: '/images/header-images/dropdown-profile/domino_mask.svg',
         text: 'Enable incognito mode',
         arrow: false
       },
       {
-        src: './images/header-images/dropdown-profile/themes.svg',
+        src: '/images/header-images/dropdown-profile/themes.svg',
         text: 'Themes',
         arrow: false
       },
@@ -41,22 +41,22 @@ const dropdownSections = (userData) => [
     type: 'dropdown',
     items: [
       {
-        src: './images/header-images/dropdown-profile/brightness.svg',
+        src: '/images/header-images/dropdown-profile/brightness.svg',
         text: 'Appearance: Dark',
         arrow: true
       },
       {
-        src: './images/header-images/dropdown-profile/translate.svg',
+        src: '/images/header-images/dropdown-profile/translate.svg',
         text: 'Language: British English',
         arrow: true
       },
       {
-        src: './images/header-images/dropdown-profile/language.svg',
+        src: '/images/header-images/dropdown-profile/language.svg',
         text: 'Location: Ukraine',
         arrow: true
       },
       {
-        src: './images/header-images/dropdown-profile/admin.svg',
+        src: '/images/header-images/dropdown-profile/admin.svg',
         text: 'Restricted Mode: Off',
         arrow: true
       },
@@ -66,7 +66,7 @@ const dropdownSections = (userData) => [
     type: 'dropdown',
     items: [
       {
-        src: './images/header-images/dropdown-profile/settings.svg',
+        src: '/images/header-images/dropdown-profile/settings.svg',
         text: 'Settings',
         arrow: false
       }
@@ -76,12 +76,12 @@ const dropdownSections = (userData) => [
     type: 'dropdown',
     items: [
       {
-        src: './images/header-images/dropdown-profile/help.svg',
+        src: '/images/header-images/dropdown-profile/help.svg',
         text: 'Help',
         arrow: false
       },
       {
-        src: './images/header-images/dropdown-profile/feedback.svg',
+        src: '/images/header-images/dropdown-profile/feedback.svg',
         text: 'Send Feedback',
         arrow: false
       }
