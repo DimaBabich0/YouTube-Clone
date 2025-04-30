@@ -13,8 +13,11 @@ const VideoPage = () => {
   // Функция для преобразования URL в embed ссылку
   const convertToEmbedUrl = (url) => {
     try {
+      console.log(url);
       const videoId = new URL(url).searchParams.get('v');
-      return `https://www.youtube.com/embed/${videoId}?autoplay=1`; // Добавлен параметр autoplay
+      console.log(videoId);
+
+      return `https://www.youtube.com/embed/${videoId}?autoplay=0`; // Добавлен параметр autoplay
     } catch (error) {
       console.error('Ошибка преобразования URL:', error);
       return null;
@@ -57,7 +60,7 @@ const VideoPage = () => {
       <div className="main-content">
         <div className="video-container">
           <div className="video-player-wrapper">
-            <VideoPreview urlVideo={convertToEmbedUrl(video.filePath)} /> {/* Передаем URL с параметром autoplay */}
+            <VideoPreview urlVideo={video.filePath} /> {/* Передаем URL с параметром autoplay */}
           </div>
         </div>
 

@@ -65,7 +65,7 @@ const ChannelSettings = () => {
 
     console.log(channel.id);
     try {
-      await fetch("http://localhost:5103/Channels/Settings/upload", {
+      await fetch("http://localhost:5103/Channels/Settings/Upload", {
         method: "POST",
         body: formData,
       });
@@ -82,7 +82,7 @@ const ChannelSettings = () => {
 
   const handleSaveSettings = async () => {
     try {
-      const response = await fetch("http://localhost:5103/Channels/Settings/update", {
+      const response = await fetch("http://localhost:5103/Channels/Settings/Update", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -91,6 +91,8 @@ const ChannelSettings = () => {
           Id: channel.Id,
           Name: name,
           Description: description,
+          PicturePath: picture,
+          BannerPath: banner
         }),
       });
 
@@ -112,7 +114,7 @@ const ChannelSettings = () => {
         style={{ backgroundImage: `url(${banner})` }}
       >
         <label className="edit-icon">
-          <img src="/images/icons/edit.png" alt="Edit Banner" />
+          <img src="/images/icons/edit.svg" alt="Edit Banner" />
           <input
             type="file"
             hidden

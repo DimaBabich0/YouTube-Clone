@@ -99,7 +99,7 @@ const VideoPreview = ({ urlVideo }) => {
         config={{
           youtube: {
             playerVars: {
-              autoplay: 1, // Автозапуск для YouTube
+              autoplay: 0, // Автозапуск для YouTube
               showinfo: 0,
               controls: 0,
               disablekb: 0,

@@ -1,17 +1,17 @@
 .channel {
     width: calc(100% - 320px);
-
 }
+
 .channel-banner {
     width: 100%;
 }
-.channel-banner 
-{
+
+.channel-banner {
     width: 100%;
     background-color: rgb(139, 139, 139);
     overflow: hidden;
     position: relative;
-    height: 300px;
+    height: 150px;
     display: inline-block;
     box-sizing: border-box;
     display: flex;
@@ -24,26 +24,25 @@
         object-fit: cover;
         z-index: 0;
     }
-    .profile-picture
-    {
+
+    .profile-picture {
         height: 120px;
         width: 120px;
     }
 }
-.banner-profile-section 
-{
-    position: absolute; 
+
+.banner-profile-section {
+    position: absolute;
     display: flex;
     z-index: 1;
     align-items: center;
     padding-left: 30px;
 }
 
-.btn-control
-{
+.btn-control {
     background-color: #F1C301;
     color: black;
-    width: 161px!important;
+    width: 161px !important;
     height: 39px;
     border-radius: 10px;
     white-space: nowrap;
@@ -52,45 +51,47 @@
     cursor: pointer;
     margin-right: 10px;
 }
-.user-name, .subscribers
-{
+
+.user-name,
+.subscribers {
     color: #ACACAC;
 }
 
-.channel * .icon
-{
+.channel * .icon {
     height: 26px;
     width: 26px;
     cursor: pointer;
 }
-.row-section, .button-row
-{
+
+.row-section,
+.button-row {
     display: flex;
     align-items: center;
     padding: 10px 0px 0px;
 
     p {
         margin-right: 10px
-    };
+    }
+
+    ;
 }
-.button-row .row > *
-{
+
+.button-row .row>* {
     margin-top: 10px;
     margin-right: 15px;
 }
-.my-channel-name
-{
+
+.my-channel-name {
     font-size: 30px;
     font-weight: 500;
     font-family: Jura;
 }
 
-.item-no-border.current-category
-{
-    border: 1px solid #F1C301!important;
+.item-no-border.current-category {
+    border: 1px solid #F1C301 !important;
 }
-.item-no-border
-{
+
+.item-no-border {
     border-radius: 10px;
     background-color: rgb(0, 0, 0);
     color: white;
@@ -104,37 +105,39 @@
     cursor: pointer;
     margin-right: 25px;
     flex-shrink: 0;
-    display: inline-block;  
+    display: inline-block;
     text-align: center;
     font-size: 1em;
     border: 1px solid black;
 }
+
 @media (max-width: 900px) {
     .channel {
         width: 100%;
     }
-    .button-row
-    {
+
+    .button-row {
         flex-direction: column;
         /* align-items: normal; */
     }
-    .channel-name
-    {
+
+    .channel-name {
         font-size: 20px;
         font-weight: 500;
         font-family: Jura;
     }
-    .profile-picture
-    {
+
+    .profile-picture {
         height: 70px;
         width: 70px;
     }
-    .channel-banner 
-    {
+
+    .channel-banner {
         height: 180px;
     }
-    .user-name, .subscribers
-    {
+
+    .user-name,
+    .subscribers {
         font-size: 13px;
     }
 }
