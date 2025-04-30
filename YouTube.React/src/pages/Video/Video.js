@@ -10,17 +10,6 @@ const VideoPage = () => {
   const [recommendedVideos, setRecommendedVideos] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Функция для преобразования URL в embed ссылку
-  const convertToEmbedUrl = (url) => {
-    try {
-      const videoId = new URL(url).searchParams.get('v');
-      return `https://www.youtube.com/embed/${videoId}?autoplay=1`; // Добавлен параметр autoplay
-    } catch (error) {
-      console.error('Ошибка преобразования URL:', error);
-      return null;
-    }
-  };
-
   // Загрузка данных видео и рекомендованных видео
   useEffect(() => {
     const fetchVideoData = async () => {
@@ -57,7 +46,7 @@ const VideoPage = () => {
       <div className="main-content">
         <div className="video-container">
           <div className="video-player-wrapper">
-            <VideoPreview urlVideo={convertToEmbedUrl(video.filePath)} /> {/* Передаем URL с параметром autoplay */}
+            <VideoPreview urlVideo={(video.filePath)} /> 
           </div>
         </div>
 
