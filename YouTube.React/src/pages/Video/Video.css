@@ -14,20 +14,39 @@
 
 .video-container {
   position: relative;
-  height: 60%;
   width: 100%;
-  overflow: hidden;
+  height: 0;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
   max-width: 100%;
+  overflow: hidden;
   background: #000;
 }
 
-.video-container .video-frame {
+.video-container iframe {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
 }
+
+@media (max-width: 1400px) {
+  .recommended-videos {
+    display: none;
+  }
+
+  .video-container {
+    padding-bottom: 45%; /* Adjust for smaller screen size */
+  }
+}
+
+@media (max-width: 1000px) {
+  .video-container {
+    padding-bottom: 60%; /* Further adjust for smaller screens */
+  }
+}
+
+
 
 
 .description {
@@ -257,19 +276,3 @@ body {
 
 
 
-@media (max-width: 1400px) {
-  .recommended-videos {
-      display: none;
-  }
-  .video-container{
-    height: 40%;
-  }
-}
-
-
-@media (max-width: 1000px) {
-
-  .video-container{
-    height: 20%;
-  }
-}

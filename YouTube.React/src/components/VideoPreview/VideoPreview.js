@@ -1,13 +1,12 @@
 import React, { useState, useRef } from 'react';
-import ReactPlayer from 'react-player'
+import ReactPlayer from 'react-player';
 import './VideoPreview.css';
 import ControlsVideo from './ControlsVideo';
 import screenfull from 'screenfull';
 
-const VideoPreview = ( {urlVideo} ) =>
-{
+const VideoPreview = ({ urlVideo }) => {
   const [state, setState] = useState({
-    playing: false,
+    playing: false, // Начинаем с autoplay = true
     muted: false,
     showSettings: false,
     volume: 0.3,
@@ -15,7 +14,7 @@ const VideoPreview = ( {urlVideo} ) =>
     loadedSeconds: 1,
     playbackRate: 1,
     showVolumeSlider: 0
-  })
+  });
 
   const {
     playing,
@@ -26,67 +25,67 @@ const VideoPreview = ( {urlVideo} ) =>
     loadedSeconds,
     playbackRate,
     showVolumeSlider
-  } = state
+  } = state;
 
-  const refPlayer = useRef()
-  const refPlayerContainer = useRef()
+  const refPlayer = useRef();
+  const refPlayerContainer = useRef();
 
   const handlePlay = () => {
-    setState({...state, playing: !state.playing})
-  }
+    setState({ ...state, playing: !state.playing });
+  };
 
   const handleVolume = (e) => {
-    setState({...state, volume: e.target.value})
-    if(muted)
-      handleMuted();
-  }
+    setState({ ...state, volume: e.target.value });
+    if (muted) handleMuted();
+  };
 
   const handleMuted = () => {
-    setState({...state, muted: !state.muted})
-  }
+    setState({ ...state, muted: !state.muted });
+  };
 
   const handleShowSettings = () => {
-    setState({...state, showSettings: !state.showSettings})
-  }
+    setState({ ...state, showSettings: !state.showSettings });
+  };
 
   const handlePlaybackRate = (e) => {
-    setState({...state, playbackRate: e.target.value})
-  }
+    setState({ ...state, playbackRate: e.target.value });
+  };
 
   const handleFullScreen = () => {
-    screenfull.toggle(refPlayerContainer.current)
-  }
+    screenfull.toggle(refPlayerContainer.current);
+  };
 
   const setDuration = (e) => {
-    setState({...state, loadedSeconds: e})
-  }
+    setState({ ...state, loadedSeconds: e });
+  };
+
   const getLenghtVideo = () => {
-    setDuration(refPlayer.current.getDuration())
-  }
+    setDuration(refPlayer.current.getDuration());
+  };
 
   const handleProgress = (e) => {
-    setState({...state, playedSeconds: e.playedSeconds})
-  }
+    setState({ ...state, playedSeconds: e.playedSeconds });
+  };
 
   const handleProgressControls = (e) => {
-    refPlayer.current.seekTo(Number(e))
-  }
+    refPlayer.current.seekTo(Number(e));
+  };
 
   const handleMouseEnter = () => {
-    setState({...state, showVolumeSlider: true})
+    setState({ ...state, showVolumeSlider: true });
   };
 
   const handleMouseLeave = () => {
-    setState({...state, showVolumeSlider: false})
+    setState({ ...state, showVolumeSlider: false });
   };
 
   return (
-    <div className='videoPlayer' ref={refPlayerContainer}>
+    <div className="videoPlayer" ref={refPlayerContainer}>
       <ReactPlayer
         className="lock-select"
         url={urlVideo}
         controls={false}
-        playing={playing}
+        playing={playing} // Автозапуск видео
         muted={muted}
         width="100%"
         height="100%"
@@ -96,12 +95,11 @@ const VideoPreview = ( {urlVideo} ) =>
         onProgress={handleProgress}
         playbackRate={playbackRate}
         onEnded={handlePlay}
-        onReady={ getLenghtVideo }
-        
+        onReady={getLenghtVideo}
         config={{
           youtube: {
-            playerVars: { 
-              autoplay: 0,
+            playerVars: {
+              autoplay: 1, // Автозапуск для YouTube
               showinfo: 0,
               controls: 0,
               disablekb: 0,
@@ -112,7 +110,7 @@ const VideoPreview = ( {urlVideo} ) =>
           }
         }}
       />
-      <ControlsVideo 
+      <ControlsVideo
         handlePlay={handlePlay}
         handleVolume={handleVolume}
         handleProgressControls={handleProgressControls}
@@ -121,7 +119,6 @@ const VideoPreview = ( {urlVideo} ) =>
         handleMouseLeave={handleMouseLeave}
         handleMuted={handleMuted}
         handleShowSettings={handleShowSettings}
-
         volume={volume}
         muted={muted}
         showSettings={showSettings}
@@ -131,7 +128,7 @@ const VideoPreview = ( {urlVideo} ) =>
         showVolumeSlider={showVolumeSlider}
       />
     </div>
-  )
-}
+  );
+};
 
-export default VideoPreview
+export default VideoPreview;
