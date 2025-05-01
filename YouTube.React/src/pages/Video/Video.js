@@ -21,8 +21,12 @@ const VideoPage = () => {
         const videoResponse = await fetch(`http://localhost:5103/Videos/${id}`);
         if (!videoResponse.ok) throw new Error('Видео не найдено'); 
 
-        const videoData = await videoResponse.json();
+        var videoData = await videoResponse.json();
+
+        videoData.profilePicturePath = 'http://localhost:5103' + videoData.profilePicturePath;
+
         setVideo(videoData);
+        
         console.log(videoData);
 
         const recommendationsResponse = await fetch(`http://localhost:5103/Videos/Recommended/${id}`);
@@ -171,8 +175,8 @@ const VideoPage = () => {
         {/* <CommentList /> */}
       </main>
 
-      <aside className="recommended-videos">
-        <h2>Videos from this chanel</h2>
+      <aside className="channel-videos">
+        <p>Videos from this chanel</p>
         <ul>
           {/* {recommendedVideos.map(video => (
             <li key={video.id} className="recommended-video" onClick={() => handleRecommendationClick(video.id)}>
