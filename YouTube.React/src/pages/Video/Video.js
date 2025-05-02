@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './Video.css';
 import VideoPreview from '../../components/VideoPreview/VideoPreview';
 import TimeAgo from './Component/TimeAgo';
+import ChannelVideos from './Component/ChannelVideos';
 
 
 const VideoPage = () => {
@@ -177,7 +178,8 @@ const VideoPage = () => {
 
       <aside className="channel-videos">
         <p>Videos from this chanel</p>
-        <ul>
+        {/* <ul> */}
+        <ChannelVideos channelName={video.channelName} />
           {/* {recommendedVideos.map(video => (
             <li key={video.id} className="recommended-video" onClick={() => handleRecommendationClick(video.id)}>
               <img src={video.img} alt={video.title} />
@@ -187,7 +189,7 @@ const VideoPage = () => {
               </div>
             </li>
           ))} */}
-        </ul>
+        {/* </ul> */}
       </aside>
     </div>
   );
