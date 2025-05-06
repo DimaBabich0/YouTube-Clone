@@ -8,7 +8,7 @@
 }
 
 .main-content {
-  width: 100%;
+  width: 70%;
   padding: 20px;
 }
 
@@ -34,15 +34,26 @@
   .recommended-videos {
     display: none;
   }
+  .main-content{
+    width:60% ;
+  }
 
   .video-container {
-    padding-bottom: 45%; /* Adjust for smaller screen size */
+    padding-bottom: 40%; 
+  }
+}
+@media (max-width: 1300px) {
+  .main-content{
+    width:100% ;
   }
 }
 
 @media (max-width: 1000px) {
   .video-container {
-    padding-bottom: 60%; /* Further adjust for smaller screens */
+    padding-bottom: 60%; 
+  }
+  .main-content{
+    width:100% ;
   }
 }
 

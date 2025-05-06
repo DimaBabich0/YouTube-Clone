@@ -4,7 +4,7 @@ import './Video.css';
 import VideoPreview from '../../components/VideoPreview/VideoPreview';
 import TimeAgo from './Component/TimeAgo';
 import ChannelVideos from './Component/ChannelVideos';
-
+import RecommendedVideo from './Component/RecommendedVideo';
 
 const VideoPage = () => {
   const { id } = useParams();
@@ -143,7 +143,7 @@ const VideoPage = () => {
         <div className='section-grid wrapper'>
           <h1 className='section-name'>Recommended</h1>
           <section className='video-grid'>
-            {/* {renderVideos(videoData)} */}
+          <RecommendedVideo channelName={video.channelName} currentVideoId={video.id} />
           </section>
         </div>
 
@@ -178,8 +178,8 @@ const VideoPage = () => {
 
       <aside className="channel-videos">
         <p>Videos from this chanel</p>
-        {/* <ul> */}
-        <ChannelVideos channelName={video.channelName} />
+        <ul>
+        <ChannelVideos channelName={video.channelName} currentVideoId={video.id} />
           {/* {recommendedVideos.map(video => (
             <li key={video.id} className="recommended-video" onClick={() => handleRecommendationClick(video.id)}>
               <img src={video.img} alt={video.title} />
@@ -189,7 +189,7 @@ const VideoPage = () => {
               </div>
             </li>
           ))} */}
-        {/* </ul> */}
+        </ul>
       </aside>
     </div>
   );
