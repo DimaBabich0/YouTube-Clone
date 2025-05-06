@@ -2,6 +2,7 @@ import './Channel.css';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const chipNames = [
   'Home',
@@ -68,8 +69,8 @@ export default function Channel() {
         data.bannerPath = 'http://localhost:5103' + data.bannerPath;
 
         data.videos.forEach(video => {
-          video.thumbnailPath ='http://localhost:5103' + video.thumbnailPath;
-          video.profilePicturePath ='http://localhost:5103' + video.profilePicturePath;
+          video.thumbnailPath = 'http://localhost:5103' + video.thumbnailPath;
+          video.profilePicturePath = 'http://localhost:5103' + video.profilePicturePath;
         });
 
         setChannelData(data);
@@ -85,29 +86,43 @@ export default function Channel() {
   return (
     <div className='channel'>
       <div className='channel-banner'>
-        <div className='banner-'></div>
         <div className='banner-profile-section '>
-          <img className='profile-picture' src={channelData.picturePath} alt='avatar'></img>
+          <img className='banner-profile-picture' src={channelData.picturePath} alt='avatar'></img>
+
           <div>
             <h1 className='my-channel-name'>{channelData.name}</h1>
+
             <div className='row-section'>
               <p className='user-name'>@{channelData.id}</p>
               <p className='subscribers'>{channelData.subscriberCount} subscribers</p>
             </div>
-            <div className='button-row'>
-              <div>
-                <button className='btn-control'>Video Control</button>
 
+            {channelData.id === Cookies.get('username') ? (
+              <div className='btn-row'>
+                <Link className='row' to="/VideoControl">
+                  <button className='btn-control'>Video Control</button>
+                </Link>
+                <Link className='row' to="/VideoControl">
+                  <img className='icon' src='/images/icons/bar_chart.svg' alt='statistics' />
+                </Link>
+                <Link className='row' to={`/channel/${channelData.id}/settings`}>
+                  <img className='icon' src='/images/icons/pen.svg' alt='settings' />
+                </Link>
               </div>
-              <div className='row'>
-                <img className='icon' src='/images/icons/bar_chart.svg' />
-                <img className='icon' src='/images/icons/pen.svg' />
+            ) : (
+              <div className='btn-row'>
+                <div className='row'>
+                  <button className='btn-subscribe'>Subscribe</button>
+                </div>
+                <div className='row'>
+                  <img className='icon' src='/images/icons/notification-bell.svg' alt='settings' />
+                </div>
               </div>
+            )}
 
-            </div>
           </div>
         </div>
-        <img className='banner-image' src={channelData.bannerPath}></img>
+        <img className='banner-image' src={channelData.bannerPath} alt='banner'></img>
       </div>
 
       <div className='horizontal-scroller'>

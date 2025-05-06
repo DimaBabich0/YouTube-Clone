@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Security.Cryptography;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.EntityFrameworkCore;
@@ -35,13 +36,13 @@ namespace YouTube.WebAPI.Controllers
                 return NotFound(new { message = "Channel not found." });
             }
 
-            var channelSettingDTO = new ChannelDTO
+            var channelSettingDTO = new ChannelSettingsDTO
             {
                 Id = channel.Id,
                 Name = channel.Name,
-                Description = channel.Description,
-                PicturePath = channel.PicturePath,
-                BannerPath = channel.BannerPath
+                Description = channel.Description ?? "",
+                PicturePath = channel.PicturePath ?? "",
+                BannerPath = channel.BannerPath ?? ""
             };
 
             return Ok(channelSettingDTO);
@@ -61,41 +62,57 @@ namespace YouTube.WebAPI.Controllers
             var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", folder);
             Directory.CreateDirectory(uploadsFolder);
 
-            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-            var filePath = Path.Combine(uploadsFolder, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
+            var existingFileName = await MyCryptography.FindCopyOfFileAsync(uploadsFolder, file);
+            
+            string fileName;
+            if (existingFileName != null)
             {
-                await file.CopyToAsync(stream);
+                fileName = existingFileName;
+            }
+            else
+            {
+                fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+                var filePath = Path.Combine(uploadsFolder, fileName);
+                using var saveStream = new FileStream(filePath, FileMode.Create);
+                await file.CopyToAsync(saveStream);
             }
 
             var relativePath = $"/Images/{folder}/{fileName}";
-
-            if (type == "picture")
-                channel.PicturePath = relativePath;
-            else if (type == "banner")
-                channel.BannerPath = relativePath;
-            else
-                return BadRequest("Неверный тип");
-
-            await _context.SaveChangesAsync();
-
             return Ok(new { path = relativePath });
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> UpdateChannel(ChannelDTO model)
+        public async Task<IActionResult> UpdateChannel(ChannelSettingsDTO model)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (string.IsNullOrWhiteSpace(model.Name))
+            {
+                return BadRequest("Username is required.");
+            }
+
             var channel = await _context.Channels.FirstOrDefaultAsync(c => c.Id == model.Id);
             if (channel == null)
-                return NotFound("Channel isn't founded");
+                return NotFound("Channel not found.");
 
             channel.Name = model.Name;
-            channel.Description = model.Description;
+            channel.Description = model.Description ?? string.Empty;
+            channel.PicturePath = model.PicturePath;
+            channel.BannerPath = model.BannerPath;
 
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
 
-            return Ok("Channel updated");
+            return Ok(new { message = "Channel updated"});
         }
     }
 }

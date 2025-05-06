@@ -30,7 +30,31 @@ namespace YouTube.WebAPI.Controllers
             }
             return hash.ToString();
         }
-    
 
+        public static async Task<string?> FindCopyOfFileAsync(string directoryPath, IFormFile uploadedFile)
+        {
+            string uploadedHash;
+            using (var sha256 = SHA256.Create())
+            using (var stream = uploadedFile.OpenReadStream())
+            {
+                var hashBytes = await sha256.ComputeHashAsync(stream);
+                uploadedHash = BitConverter.ToString(hashBytes).Replace("-", "").ToLowerInvariant();
+            }
+
+            foreach (var filePath in Directory.GetFiles(directoryPath))
+            {
+                using var sha256 = SHA256.Create();
+                using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+                var existingHash = await sha256.ComputeHashAsync(fs);
+                var existingHashStr = BitConverter.ToString(existingHash).Replace("-", "").ToLowerInvariant();
+
+                if (existingHashStr == uploadedHash)
+                {
+                    return Path.GetFileName(filePath);
+                }
+            }
+
+            return null;
+        }
     }
 }

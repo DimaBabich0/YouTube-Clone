@@ -33,7 +33,8 @@ namespace YouTube.WebAPI.Controllers
                     ViewCount = v.ViewCount,
                     Duration = v.Duration,
                     ChannelName = v.Channel.Name,
-                    ProfilePicturePath = v.Channel.PicturePath
+                    ProfilePicturePath = v.Channel.PicturePath,
+                    ChannelId = v.Channel.Id,
                 })
                 .ToListAsync();
 

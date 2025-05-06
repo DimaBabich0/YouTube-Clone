@@ -12,10 +12,14 @@ const renderVideos = (videos) => {
       <div className='item-wrapper'>
         <img className='thumbnail' src={video.thumbnailPath} alt="Video thumbnail" />
         <div className='info-section'>
-          <img className='profile-picture' src={video.profilePicturePath} alt="Channel profile" />
+          <Link to={`/channel/${video.channelId}`}>
+            <img className='profile-picture' src={video.profilePicturePath} alt="Channel profile" />
+          </Link>
           <div className='text-section'>
             <h1 className='video-name'>{video.title}</h1>
-            <p className='channel-name'>{video.channelName}</p>
+            <Link to={`/channel/${video.channelId}`}>
+              <p className='channel-name'>{video.channelName}</p>
+            </Link>
             <div className='row'>
               <p className='video-info'>{video.viewCount} views</p>
               <p className='video-info'>{video.uploadDate}</p>
@@ -51,7 +55,7 @@ export default function MainPage() {
       });
   }, []);
 
-  return(
+  return (
     <div className="main">
       <div className='main--container'>
         <div className='banner'>
@@ -63,26 +67,26 @@ export default function MainPage() {
             <div className='banner-items'>
               <div className='banner-wrapper'>
                 <div className='row'>
-                <div className='row'>
-                  <button className='button-watch'>Watch</button>
-                  <h2 className='banner-text'>Enleo • 5m views • 6 day ago</h2>
-                </div>
-                <div className='carousel row right'>
-                  <img src='/images/icons/arrow_back_ios.svg'/>
-                  <div className='carousel-item'>
-                    <img className='carousel-img' src='./images/carousel/img1.png'/>
+                  <div className='row'>
+                    <button className='button-watch'>Watch</button>
+                    <h2 className='banner-text'>Enleo • 5m views • 6 day ago</h2>
                   </div>
-                  <div className='carousel-item'>
-                    <img className='carousel-img' src='./images/carousel/img2.png'/>
+                  <div className='carousel row right'>
+                    <img src='/images/icons/arrow_back_ios.svg' />
+                    <div className='carousel-item'>
+                      <img className='carousel-img' src='./images/carousel/img1.png' />
+                    </div>
+                    <div className='carousel-item'>
+                      <img className='carousel-img' src='./images/carousel/img2.png' />
+                    </div>
+                    <div className='carousel-item'>
+                      <img className='carousel-img' src='./images/banner.jpg' />
+                    </div>
+                    <img src='/images/icons/arrow_back_ios_r.svg' />
                   </div>
-                  <div className='carousel-item'>
-                    <img className='carousel-img' src='./images/banner.jpg'/>
-                  </div>
-                  <img src='/images/icons/arrow_back_ios_r.svg'/>
-                </div>
                 </div>
                 <div className='progress-bar'>
-                  <div className='time'/>
+                  <div className='time' />
                 </div>
                 <p className='time-text'>3:55</p>
               </div>
@@ -99,13 +103,13 @@ export default function MainPage() {
           <div className='inner-box'>
             <div className='item-box'>
               {chipNames.map((chip, index) => (
-                <button 
-                  key={index} 
-                  className={`item ${activeButton === index ? 'active' : ''}`} 
+                <button
+                  key={index}
+                  className={`item ${activeButton === index ? 'active' : ''}`}
                   onClick={() => setActiveButton(index)}
                 >
                   <p>{chip}</p>
-                </button> 
+                </button>
               ))}
             </div>
             <div className='vertical-mid-hack'></div>
@@ -130,7 +134,7 @@ export default function MainPage() {
           </section>
         </div>
         */}
-         
+
       </div>
     </div>
   );
