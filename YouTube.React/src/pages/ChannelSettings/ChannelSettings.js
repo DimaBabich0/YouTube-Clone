@@ -89,6 +89,7 @@ const ChannelSettings = () => {
         }
       } else {
         alert("All changes saved successfully");
+        window.location.reload();
       }
     } catch (error) {
       console.error(error);

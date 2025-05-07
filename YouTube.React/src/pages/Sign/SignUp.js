@@ -1,50 +1,55 @@
-import './SignIn.css';
+import './Sign.css';
 import React, { useState } from 'react';
 import PhotoSlider from './Component/PhotoSlider/PhotoSlider.js';
-import { Link, useNavigate } from 'react-router-dom';
-import SocialIcons from './Component/SocialIcons/SocialIcons';
+import { useNavigate } from 'react-router-dom';
+import SocialIcons from './Component/SocialIcons/SocialIcons.js';
+import icon_Arrow from './Images/icon_arrow_insert.svg';
 import Cookies from 'js-cookie';
 
-export default function SignIn() {
-  Cookies.remove('username');
+export default function SignUp() {
   const navigate = useNavigate();
 
-  // Храним данные формы для авторизации (email, password) и текст ошибки
   const [formData, setFormData] = useState({
+    username: '',
     email: '',
     password: '',
+    confirmPassword: '',
     errorMessage: ''
   });
 
-  // Обработчик для изменения данных формы
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-      errorMessage: '' // Очищаем ошибку при изменении данных
+      errorMessage: ''
     }));
   };
 
-  // Проверка формы и отправка данных на сервер для авторизации
   const sendToDatabase = async () => {
-    const { email, password } = formData;
+    const { username, email, password, confirmPassword } = formData;
 
-    // Проверка на наличие введённых данных в поля email и password
-    if (!email || !password) {
+    if (!username || !email || !password || !confirmPassword) {
       setFormData((prev) => ({
         ...prev,
-        errorMessage: 'Please enter both email and password.'
+        errorMessage: 'Please fill in all fields.'
       }));
       return;
     }
 
-    // Отправка данных на сервер для авторизации пользователя
+    if (password !== confirmPassword) {
+      setFormData((prev) => ({
+        ...prev,
+        errorMessage: 'Passwords do not match.'
+      }));
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:5103/Sign/In', {
+      const response = await fetch('http://localhost:5103/Sign/Up', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ username, email, password })
       });
 
       let text = await response.text();
@@ -62,14 +67,14 @@ export default function SignIn() {
         window.location.reload();
       } else {
         const errorMessages = data.errors ? Object.entries(data.errors).map(([field, messages]) => messages.map(msg => `${msg}`)).flat() : [data.message || 'Something went wrong.'];
-        // Обработка и вывод ошибок, если сервер вернул их
+
         setFormData((prev) => ({
           ...prev,
-          errorMessage: errorMessages.join(' ')
+          errorMessage: errorMessages || 'Something went wrong. Try again.'
         }));
       }
     } catch (error) {
-      console.log('Sign-in error:', error);
+      console.error('Sign-up error:', error);
       setFormData((prev) => ({
         ...prev,
         errorMessage: 'Server error. Please try again later.'
@@ -77,13 +82,11 @@ export default function SignIn() {
     }
   };
 
-  // Запуск процесса авторизации по клику на кнопку "Sign in"
-  const handleButtonClick = () => {
+  const handleSignUpClick = () => {
     sendToDatabase();
   };
 
   return (
-    // Слайдер фотографий на странице входа
     <div className='page'>
       <div className='photos'>
         <PhotoSlider />
@@ -91,15 +94,28 @@ export default function SignIn() {
 
       <div className='block'>
         <div>
+          <button onClick={() => navigate('/sign-in')} className="back-button">
+            <img src={icon_Arrow} alt="Back" />
+          </button>
+        </div>
+
+        <div>
           <h1 className='mainText'>
-            get some<br />
-            felicity<br />
-            with <span className='specialText'>amtlis</span><br />
+            Create<br />
+            an account
           </h1>
         </div>
 
         <label>
-          <div>
+          <div className='inputSection'>
+            <input
+              className='input'
+              type="text"
+              name="username"
+              placeholder="Name"
+              value={formData.username}
+              onChange={handleChange}
+            />
             <input
               className='input'
               type="text"
@@ -110,7 +126,7 @@ export default function SignIn() {
             />
           </div>
 
-          <div className='passwordSection'>
+          <div className='inputSection'>
             <input
               className='input'
               type="password"
@@ -119,7 +135,14 @@ export default function SignIn() {
               value={formData.password}
               onChange={handleChange}
             />
-            <a className="link" href="/">Forgot your password?</a>
+            <input
+              className='input'
+              type="password"
+              name="confirmPassword"
+              placeholder="Repeat password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+            />
           </div>
         </label>
 
@@ -131,18 +154,15 @@ export default function SignIn() {
 
         <div className='bottomSection'>
           <SocialIcons />
-          <button className='sign-in-button' type="button" onClick={handleButtonClick}>
-            <p className='text'>Sign in</p>
+          <button className='log-button' onClick={handleSignUpClick}>
+            <p className='text'>Sign Up</p>
           </button>
         </div>
 
-        <Link className='flex-center' to='/sign-up'>
-          <a className="link" href="#"><p className='text'>Create an account</p></a>
-        </Link>
-        <br />
+        <div className='flex-center'>
+          <a href="http://localhost:3000/" className='link'><p className='text'>Welcome to AMTLIS</p></a>
+        </div>
       </div>
-
     </div>
-
   );
 }

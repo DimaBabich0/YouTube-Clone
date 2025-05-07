@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './Video.css';
 import VideoPreview from '../../components/VideoPreview/VideoPreview';
-import TimeAgo from './Component/TimeAgo';
+import TimeFormatter from '../../components/Common/TimeFormatter';
 import ChannelVideos from './Component/ChannelVideos';
 import RecommendedVideo from './Component/RecommendedVideo';
 
@@ -130,7 +130,7 @@ const VideoPage = () => {
         </div>
         <div className="description">
           <p>
-          {video.viewCount} views • <TimeAgo date={video.uploadDate}/> <br /><br />
+          {video.viewCount} views • <TimeFormatter date={video.uploadDate}/> <br /><br />
             {video.description}
           </p>
           <div className="additional-info">

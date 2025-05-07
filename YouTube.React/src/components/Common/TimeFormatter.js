@@ -1,10 +1,10 @@
 import React from 'react';
 
-const TimeAgo = ({ date }) => {
-  const getTimeAgo = (dateString) => {
+const TimeFormatter = ({ date }) => {
+  const getTimeFormat = (dateString) => {
     const now = new Date();
     const past = new Date(dateString);
-    const diff = Math.floor((now - past) / 1000); // в секундах
+    const diff = Math.floor((now - past) / 1000);
 
     const intervals = [
       { label: 'year', seconds: 31536000 },
@@ -25,7 +25,7 @@ const TimeAgo = ({ date }) => {
     return 'just now';
   };
 
-  return <span>{getTimeAgo(date)}</span>;
+  return <span>{getTimeFormat(date)}</span>;
 };
 
-export default TimeAgo;
+export default TimeFormatter;

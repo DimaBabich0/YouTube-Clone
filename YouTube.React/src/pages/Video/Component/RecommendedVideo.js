@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './RecommendedVideo.css';
-import TimeAgo from './TimeAgo';
+import TimeFormatter from '../../../components/Common/TimeFormatter';
 
 const RecommendedVideos = ({ currentVideoId, genre }) => {
   const [videos, setVideos] = useState([]);
@@ -59,7 +59,7 @@ const RecommendedVideos = ({ currentVideoId, genre }) => {
               </Link>
               <div className='row'>
                 <p className='video-info'>{video.viewCount} views</p>
-                <p className='video-info'><TimeAgo date={video.uploadDate}/></p>
+                <p className='video-info'><TimeFormatter date={video.uploadDate}/></p>
               </div>
             </div>
           </div>

@@ -24,56 +24,60 @@
     display: flex;
     align-items: center;
 
-    .picture
-    {
+    .picture {
         aspect-ratio: 1/1;
         width: 125px;
         object-fit: cover;
         border-radius: 100vh;
     }
 }
-  
-  
+
 .info-section {
     display: flex;
 }
-  
+
 .text-section {
     margin-bottom: 5px;
     padding: 10px;
-    p
-    {
+
+    p {
         margin: 7px 0px 0px;
     }
+
     .sub-channel-name {
         word-wrap: break-word;
         color: white;
     }
-    .user-name, .subscribers {
+
+    .user-name,
+    .subscribers {
         font-size: 13px;
         word-wrap: break-word;
     }
-    .video-info
-    {
+
+    .video-info {
         color: gray;
         margin-right: 10px;
     }
 }
+
 .text-section .row {
-display: flex;
+    display: flex;
 }
+
 .section-grid:last-child .subscriptions-grid {
     border-bottom: none;
     padding-bottom: 0px;
 }
+
 @media (max-width: 1400px) {
-.subscriptions-grid {
-    grid-template-columns: repeat(2, 1fr);
-}
+    .subscriptions-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 650px) {
-.subscriptions-grid {
-    grid-template-columns: repeat(1, 1fr);
+    .subscriptions-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }
-} 

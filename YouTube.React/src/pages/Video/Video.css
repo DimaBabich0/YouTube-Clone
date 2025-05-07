@@ -1,6 +1,6 @@
 .video-page {
   width: 100%;
-  
+
   display: flex;
   background-color: #000000;
   color: #ff0000;
@@ -16,25 +16,25 @@
 
 
 .description {
-  width: 100%; 
+  width: 100%;
   color: white;
   padding: 20px;
   background: linear-gradient(270.78deg, #090909 35.91%, #6486DB 254.73%);
-  border-radius: 10px; 
+  border-radius: 10px;
 }
 
 .description p {
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }
 
 .additional-info {
-  bottom: 10%; 
-  right: 30px; 
+  bottom: 10%;
+  right: 30px;
   display: flex;
   align-items: center;
   color: white;
   cursor: pointer;
-padding-left: 80%;
+  padding-left: 80%;
 }
 
 .additional-info img {
@@ -73,10 +73,10 @@ padding-left: 80%;
 }
 
 .channel-videos p {
-font-family: Jura;
-font-size: 20px;
-line-height: 100%;
-letter-spacing: 0px;
+  font-family: Jura;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0px;
 }
 
 .channel-videos p,
@@ -155,31 +155,31 @@ body {
   opacity: 1;
   cursor: pointer;
 
-  margin-left: -10%; 
+  margin-left: -10%;
 }
 
 .actions {
   display: flex;
-  justify-content: center; 
-  align-items: center; 
-  gap: 20px; 
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
 }
 
 .action-item {
   display: flex;
-  align-items: center; 
-  cursor: pointer; 
+  align-items: center;
+  cursor: pointer;
 }
 
 .action-item img {
-  width: 24px; 
+  width: 24px;
   height: 24px;
-  margin-right: 5px; 
+  margin-right: 5px;
 }
 
 .action-item p {
-  margin: 0px; 
-  
+  margin: 0px;
+
 }
 
 
@@ -197,9 +197,9 @@ body {
 }
 
 .comment-profile {
-  font-size: 18px; 
-  margin: 10px 0;  
-  padding: 10px;  
+  font-size: 18px;
+  margin: 10px 0;
+  padding: 10px;
   color: white;
 }
 
@@ -238,13 +238,15 @@ body {
   gap: 10px;
 }
 
-.icon-smile, .icon-at, .icon-send {
+.icon-smile,
+.icon-at,
+.icon-send {
   cursor: pointer;
 }
 
 
-.description{
-  margin-bottom: 20px ;
+.description {
+  margin-bottom: 20px;
 }
 
 
@@ -256,10 +258,6 @@ body {
 
 
 
-@media (max-width: 1000px) {
+@media (max-width: 1000px) {}
 
-}
-
-@media (max-width: 600px) {
-
-}
+@media (max-width: 600px) {}
