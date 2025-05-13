@@ -80,6 +80,7 @@ const VideoPreview = ({ urlVideo }) => {
   };
 
   return (
+    <div className="video-wrapper">
     <div className="videoPlayer" ref={refPlayerContainer}>
       <ReactPlayer
         className="lock-select"
@@ -128,6 +129,7 @@ const VideoPreview = ({ urlVideo }) => {
         showVolumeSlider={showVolumeSlider}
       />
     </div>
+  </div>
   );
 };
 

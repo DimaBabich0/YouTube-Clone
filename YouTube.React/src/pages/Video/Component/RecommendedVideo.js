@@ -7,7 +7,28 @@ const RecommendedVideos = ({ currentVideoId, genre }) => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(4);  
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 1300) {
+        setVisibleCount(3);  
+      } else {
+        setVisibleCount(4);  
+      }
+    };
+
+    
+    window.addEventListener('resize', handleResize);
+
+    
+    handleResize();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchRecommendedVideos = async () => {
@@ -29,7 +50,7 @@ const RecommendedVideos = ({ currentVideoId, genre }) => {
             video.id !== currentVideoId
         );
 
-        setVideos(filteredVideos.slice(0, 4)); 
+        setVideos(filteredVideos.slice(0, visibleCount));  
       } catch (err) {
         console.error('Ошибка при загрузке данных:', err);
         setError(err.message);
@@ -41,7 +62,7 @@ const RecommendedVideos = ({ currentVideoId, genre }) => {
     if (currentVideoId) {
       fetchRecommendedVideos();
     }
-  }, [currentVideoId, genre]);
+  }, [currentVideoId, genre, visibleCount]);  
 
   const renderVideos = (videos) => {
     return videos.map((video) => (

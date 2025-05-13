@@ -11,10 +11,11 @@ const VideoSettings = ({
         <div className='dropup-item'>
           <p>Annotation</p>
 
-          <label class="switch">
-            <input type="checkbox"></input>
-            <span class="slider round"></span>
+          <label className="switch">
+            <input type="checkbox" />
+            <span className="slider round"></span>
           </label>
+
         </div>
 
         <div className='dropup-item'>
