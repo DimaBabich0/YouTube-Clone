@@ -97,7 +97,7 @@ const VideoPage = () => {
         </div>
         <div className="description">
           <p>
-            <ViewsFormatter views={video.viewCount} /> views • <TimeFormatter date={video.uploadDate} /> <br /><br />
+          {video.viewCount} views • <TimeFormatter date={video.uploadDate}/> <br /><br />
             {video.description}
           </p>
           <div className="additional-info">

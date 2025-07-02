@@ -211,27 +211,10 @@ body{
   .channel-videos {
     display: none;
   }
-  .author-section{
-    max-width: 100%;
-  }
-  .video-container {
-    max-width: 100%;
-  }
-  .container{
-    max-width: 100%;
-  }
 }
 
-.author-subscriberCount {
-  font-size: 10px;            
-  color: #c2c2c2;            
-  font-weight: bold;          
-  margin-bottom: 10px;        
-  text-align: left; 
-  font-family: 'Inter', sans-serif;    
-  line-height: 100%;   
-}
 
-.author-subscriberCount span {
-  color: #ff9800;             
-}
+
+@media (max-width: 1000px) {}
+
+@media (max-width: 600px) {}

@@ -83,10 +83,15 @@ input:checked+.slider {
   background-color: #6486DB;
 }
 
-input:checked+.slider:before {
-  transform: translateX(20px);
+.icon-smile, .icon-at, .icon-send {
+  cursor: pointer;
 }
 
-.slider.round {
-  border-radius: 34px;
+.description{
+  margin-bottom: 20px ;
 }
+
+
+
+
+
