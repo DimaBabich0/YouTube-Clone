@@ -97,17 +97,17 @@ const ChannelSettings = () => {
     }
   };
 
-  // if (!channel || id !== username) {
-  //   return (
-  //     <div className="not-owner-warning">
-  //       Вы не можете редактировать этот профиль, ибо вы не являетесь его владельцем.
-  //     </div>
-  //   );
-  // }
+  if (id !== username) {
+    return (
+      <div className="not-owner-warning">
+        Вы не можете редактировать этот профиль, ибо вы не являетесь его владельцем.
+      </div>
+    );
+  }
 
-  // if (loading) {
-  //   return <div className="not-owner-warning">Загрузка профиля...</div>;
-  // }
+  if (loading) {
+    return <div className="not-owner-warning">Загрузка профиля...</div>;
+  }
 
   return (
     <div className="channel-settings-container">

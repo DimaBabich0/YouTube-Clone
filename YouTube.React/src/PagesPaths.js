@@ -5,6 +5,7 @@ import SignUp from "./pages/Sign/SignUp";
 import Subscriptions from "./pages/Subscriptions/Subscriptions";
 import Channel from "./pages/Channel/Channel";
 import ChannelSettings from "./pages/ChannelSettings/ChannelSettings";
+import ChannelStudio from "./pages/ChannelStudio/ChannelStudio";
 
 const pages = [
     { 
@@ -38,6 +39,10 @@ const pages = [
     { 
         path: '/channel/:id/settings', 
         component: ChannelSettings 
+    },
+    { 
+        path: '/channel/:id/studio', 
+        component: ChannelStudio 
     },
 ]
 

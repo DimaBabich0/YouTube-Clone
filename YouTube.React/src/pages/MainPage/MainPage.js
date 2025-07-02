@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './MainPage.css';
+import TimeFormatter from '../../components/Common/TimeFormatter';
+import ViewsFormatter from '../../components/Common/ViewsFormatter';
 
 const chipNames = [
   'All', 'Music', 'Jams', 'Podcasts', 'Comedy', 'Live', 'Selena Gomez', 'Manga', 'Game Shows', 'Spiderman', 'Existential Dread', 'Horrors Beyond Comprehension'
@@ -21,8 +23,8 @@ const renderVideos = (videos) => {
               <p className='channel-name'>{video.channelName}</p>
             </Link>
             <div className='row'>
-              <p className='video-info'>{video.viewCount} views</p>
-              <p className='video-info'>{video.uploadDate}</p>
+              <p className='video-info'><ViewsFormatter views={video.viewCount}/>  views</p>
+              <p className='video-info'><TimeFormatter date={video.uploadDate} /></p>
             </div>
           </div>
         </div>
@@ -57,7 +59,8 @@ export default function MainPage() {
 
   return (
     <div className="main">
-      <div className='main--container'>
+
+      {/* <div className='main--container'>
         <div className='banner'>
           <div className='banner-contents'>
             <div className='banner-text-container'>
@@ -95,7 +98,8 @@ export default function MainPage() {
           <div className='banner-gradient-side'></div>
           <div className='banner-gradient-bottom'></div>
         </div>
-      </div>
+      </div> */}
+
       <div className='horizontal-scroller'>
         <div className='gradient right'></div>
         <div className='gradient left'></div>

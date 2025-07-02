@@ -80,53 +80,55 @@ const VideoPreview = ({ urlVideo }) => {
   };
 
   return (
-    <div className="videoPlayer" ref={refPlayerContainer}>
-      <ReactPlayer
-        className="lock-select"
-        url={urlVideo}
-        controls={false}
-        playing={playing} // Автозапуск видео
-        muted={muted}
-        width="100%"
-        height="100%"
-        volume={volume}
-        ref={refPlayer}
-        progressInterval={100}
-        onProgress={handleProgress}
-        playbackRate={playbackRate}
-        onEnded={handlePlay}
-        onReady={getLenghtVideo}
-        config={{
-          youtube: {
-            playerVars: {
-              autoplay: 0, // Автозапуск для YouTube
-              showinfo: 0,
-              controls: 0,
-              disablekb: 0,
-              iv_load_policy: 3,
-              modestbranding: 1,
-              rel: 0
+    <div className="video-wrapper">
+      <div className="videoPlayer" ref={refPlayerContainer}>
+        <ReactPlayer
+          className="lock-select"
+          url={urlVideo}
+          controls={false}
+          playing={playing} // Автозапуск видео
+          muted={muted}
+          width="100%"
+          height="100%"
+          volume={volume}
+          ref={refPlayer}
+          progressInterval={100}
+          onProgress={handleProgress}
+          playbackRate={playbackRate}
+          onEnded={handlePlay}
+          onReady={getLenghtVideo}
+          config={{
+            youtube: {
+              playerVars: {
+                autoplay: 0, // Автозапуск для YouTube
+                showinfo: 0,
+                controls: 0,
+                disablekb: 0,
+                iv_load_policy: 3,
+                modestbranding: 1,
+                rel: 0
+              }
             }
-          }
-        }}
-      />
-      <ControlsVideo
-        handlePlay={handlePlay}
-        handleVolume={handleVolume}
-        handleProgressControls={handleProgressControls}
-        handleFullScreen={handleFullScreen}
-        handleMouseEnter={handleMouseEnter}
-        handleMouseLeave={handleMouseLeave}
-        handleMuted={handleMuted}
-        handleShowSettings={handleShowSettings}
-        volume={volume}
-        muted={muted}
-        showSettings={showSettings}
-        playing={playing}
-        playedSeconds={playedSeconds}
-        loadedSeconds={loadedSeconds}
-        showVolumeSlider={showVolumeSlider}
-      />
+          }}
+        />
+        <ControlsVideo
+          handlePlay={handlePlay}
+          handleVolume={handleVolume}
+          handleProgressControls={handleProgressControls}
+          handleFullScreen={handleFullScreen}
+          handleMouseEnter={handleMouseEnter}
+          handleMouseLeave={handleMouseLeave}
+          handleMuted={handleMuted}
+          handleShowSettings={handleShowSettings}
+          volume={volume}
+          muted={muted}
+          showSettings={showSettings}
+          playing={playing}
+          playedSeconds={playedSeconds}
+          loadedSeconds={loadedSeconds}
+          showVolumeSlider={showVolumeSlider}
+        />
+      </div>
     </div>
   );
 };

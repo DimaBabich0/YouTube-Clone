@@ -63,5 +63,133 @@ namespace YouTube.WebAPI.Controllers
 
             return Ok(video);
         }
+
+        [HttpGet("Channel/{channelId}")]
+        public async Task<ActionResult<List<DetailesVideoDTO>>> GetVideosByChannel(string channelId)
+        {
+            var channelExists = await _context.Channels.AnyAsync(c => c.Id == channelId);
+            if (!channelExists)
+                return NotFound("Канал не найден");
+
+            var videos = await _context.Videos
+                .Where(v => v.ChannelId == channelId)
+                .OrderByDescending(v => v.UploadDate)
+                .Select(v => new DetailesVideoDTO
+                {
+                    Id = v.Id,
+                    Title = v.Title,
+                    Description = v.Description,
+                    FilePath = v.FilePath,
+                    ThumbnailPath = v.ThumbnailPath,
+                    UploadDate = v.UploadDate,
+                    Duration = v.Duration,
+                    ViewCount = v.ViewCount,
+                    LikesCount = v.LikesCount,
+                })
+                .ToListAsync();
+
+            return Ok(videos);
+        }
+
+        [HttpPost("UploadThumbnail")]
+        public async Task<IActionResult> UploadThumbnail(IFormFile file, [FromForm] string channelId)
+        {
+            if (file == null || file.Length == 0)
+                return BadRequest("Файл отсутствует");
+
+            var channel = await _context.Channels.FirstOrDefaultAsync(c => c.Id == channelId);
+            if (channel == null)
+                return NotFound("Канал не найден");
+
+            var folder = "Thumbnails";
+            var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", folder);
+            Directory.CreateDirectory(uploadsFolder);
+
+            var existingFileName = await MyCryptography.FindCopyOfFileAsync(uploadsFolder, file);
+
+            string fileName;
+            if (existingFileName != null)
+            {
+                fileName = existingFileName;
+            }
+            else
+            {
+                fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+                var filePath = Path.Combine(uploadsFolder, fileName);
+                using var stream = new FileStream(filePath, FileMode.Create);
+                await file.CopyToAsync(stream);
+            }
+
+            var relativePath = $"/Images/{folder}/{fileName}";
+            return Ok(new { path = relativePath });
+        }
+
+        [HttpPost("Create")]
+        public async Task<IActionResult> CreateVideo([FromBody] VideoUploadDTO videoDTO)
+        {
+            var channel = await _context.Channels.FirstOrDefaultAsync(c => c.Id == videoDTO.ChannelId);
+            if (channel == null)
+                return NotFound("Канал не найден");
+
+            Random random = new Random();
+            var video = new Video
+            {
+                Id = IdGenerator.GenerateId(),
+                Title = videoDTO.Title,
+                FilePath = videoDTO.FilePath,
+                ThumbnailPath = videoDTO.ThumbnailPath,
+                UploadDate = DateTime.UtcNow,
+                Description = videoDTO.Description,
+                ViewCount = 0,
+                LikesCount = 0,
+                Duration = random.Next(120, 9999),
+                ChannelId = videoDTO.ChannelId,
+            };
+
+            _context.Videos.Add(video);
+            await _context.SaveChangesAsync();
+
+            var resultDto = new VideoUploadDTO
+            {
+                Title = video.Title,
+                FilePath = video.FilePath,
+                ThumbnailPath = video.ThumbnailPath,
+                Description = video.Description,
+                ChannelId = video.ChannelId
+            };
+
+            return Ok(resultDto);
+        }
+
+        [HttpPut("Update")]
+        public async Task<IActionResult> UpdateVideo([FromBody] VideoUpdateDTO dto)
+        {
+            var video = await _context.Videos.FirstOrDefaultAsync(v => v.Id == dto.Id);
+            if (video == null)
+                return NotFound("Видео не найдено");
+
+            video.Title = dto.Title;
+            video.ThumbnailPath = dto.ThumbnailPath;
+            video.FilePath = dto.FilePath;
+            video.Description = dto.Description;
+
+            _context.Videos.Update(video);
+            await _context.SaveChangesAsync();
+
+            return Ok(video);
+        }
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> DeleteVideo(string id)
+        {
+            var video = await _context.Videos.FirstOrDefaultAsync(v => v.Id == id);
+            if (video == null)
+                return NotFound("Видео не найдено");
+
+            _context.Videos.Remove(video);
+            await _context.SaveChangesAsync();
+
+            return Ok(new { message = "Видео удалено" });
+        }
     }
 }

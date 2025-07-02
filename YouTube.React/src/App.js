@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation, matchPath } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import pages from './PagesPaths';
 
@@ -47,10 +47,16 @@ function App() {
 
 function RouterApp({ userData, isLoading }) {
   const location = useLocation();
-  const noHeader = ['/sign-in', '/sign-up'];
+  const path = location.pathname;
 
-  const showHeader = !noHeader.includes(location.pathname);
-  const showNavbar = showHeader;
+  const noHeader = ['/sign-in', '/sign-up'];
+  const noNavbar = ['/sign-in', '/sign-up', '/channel/:id/studio'];
+
+  const shouldHideHeader = noHeader.some((pattern) => matchPath(pattern, path));
+  const shouldHideNavbar = noNavbar.some((pattern) => matchPath(pattern, path));
+
+  const showHeader = !shouldHideHeader;
+  const showNavbar = !shouldHideNavbar;
 
   if (isLoading) return null;
 

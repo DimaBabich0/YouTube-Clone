@@ -99,10 +99,10 @@ export default function Channel() {
 
             {channelData.id === Cookies.get('username') ? (
               <div className='btn-row'>
-                <Link className='row' to="/VideoControl">
+                <Link className='row' to={`/channel/${channelData.id}/studio`}>
                   <button className='btn-control'>Video Control</button>
                 </Link>
-                <Link className='row' to="/VideoControl">
+                <Link className='row' to={`/channel/${channelData.id}/studio`}>
                   <img className='icon' src='/images/icons/bar_chart.svg' alt='statistics' />
                 </Link>
                 <Link className='row' to={`/channel/${channelData.id}/settings`}>
