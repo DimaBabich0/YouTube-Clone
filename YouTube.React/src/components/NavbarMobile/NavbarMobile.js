@@ -5,22 +5,22 @@ import './NavbarMobile.css';
 const items = [
   {
     name: 'Home',
-    img: './images/icons/home.svg',
+    img: '/images/icons/home.svg',
     path: '/'
   },
   {
     name: 'Playme',
-    img: './images/icons/playme.svg',
+    img: '/images/icons/playme.svg',
     path: '/playme'
   },
   {
     name: 'Subscriptions',
-    img: './images/icons/sub.svg',
+    img: '/images/icons/sub.svg',
     path: '/subscriptions'
   },
   {
     name: 'Streams',
-    img: './images/icons/streams.svg',
+    img: '/images/icons/streams.svg',
     path: '/streams'
   }
 ];

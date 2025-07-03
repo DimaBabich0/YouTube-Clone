@@ -57,7 +57,8 @@ namespace YouTube.WebAPI.Controllers
                     ViewCount = v.ViewCount,
                     LikesCount = v.LikesCount,
                     ChannelName = v.Channel.Name,
-                    ProfilePicturePath = v.Channel.PicturePath
+                    ProfilePicturePath = v.Channel.PicturePath,
+                    ChannelId = v.Channel.Id,
                 })
                .FirstOrDefaultAsync(v => v.Id == id);
 
@@ -85,6 +86,7 @@ namespace YouTube.WebAPI.Controllers
                     Duration = v.Duration,
                     ViewCount = v.ViewCount,
                     LikesCount = v.LikesCount,
+                    ChannelId = channelId
                 })
                 .ToListAsync();
 

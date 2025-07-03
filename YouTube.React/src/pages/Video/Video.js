@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import './Video.css';
 import VideoPreview from '../../components/VideoPreview/VideoPreview';
 import TimeFormatter from '../../components/Common/TimeFormatter';
@@ -28,7 +28,8 @@ const VideoPage = () => {
         setVideo(videoData);
 
         // Получаем данные о канале
-        const channelResponse = await fetch(`http://localhost:5103/Channels/${videoData.channelName}`);
+        console.log(videoData);
+        const channelResponse = await fetch(`http://localhost:5103/Channels/${videoData.channelId}`);
         if (channelResponse.ok) {
           const channelData = await channelResponse.json();
           channelData.picturePath = 'http://localhost:5103' + channelData.picturePath;
@@ -68,10 +69,10 @@ const VideoPage = () => {
         <div className="author-section">
           <div className="author-img">
             {channel && <img src={channel.picturePath} alt={channel.name} />}
-            <div>
+            <Link to={`/channel/${video.channelId}`}>
               <div className="author-name">{video.channelName}</div>
               <div className="author-subscriberCount">{channel ? `${channel.subscriberCount} подписчиков` : 'Подписчики не указаны'}</div>
-            </div>
+            </Link>
           </div>
           <span className='Subscribe' onClick={() => console.log('Subscribe clicked')}>
             Subscribe
@@ -97,7 +98,7 @@ const VideoPage = () => {
         </div>
         <div className="description">
           <p>
-          {video.viewCount} views • <TimeFormatter date={video.uploadDate}/> <br /><br />
+            <ViewsFormatter views={video.viewCount}/> views • <TimeFormatter date={video.uploadDate} /> <br /><br />
             {video.description}
           </p>
           <div className="additional-info">

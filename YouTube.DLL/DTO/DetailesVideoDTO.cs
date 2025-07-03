@@ -19,5 +19,6 @@ namespace YouTube.BLL.DTO
         public int ViewCount { get; set; }
         public int LikesCount { get; set; }
         public string ProfilePicturePath { get; set; }
+        public string ChannelId { get; set; }
     }
 }

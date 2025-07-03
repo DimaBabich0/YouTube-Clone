@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import TimeFormatter from '../../components/Common/TimeFormatter';
+import ViewsFormatter from '../../components/Common/ViewsFormatter';
 
 const chipNames = [
   'Home',
@@ -39,8 +41,8 @@ const renderVideos = (videos) => {
             <h1 className='video-name'>{video.title}</h1>
             <p className='channel-name'>{video.channelName}</p>
             <div className='row'>
-              <p className='video-info'>{video.viewCount} views</p>
-              <p className='video-info'>{video.uploadDate}</p>
+              <p className='video-info'><ViewsFormatter views={video.viewCount}/> views</p>
+              <p className='video-info'><TimeFormatter date={video.uploadDate} /></p>
             </div>
           </div>
         </div>
